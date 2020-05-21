@@ -143,6 +143,10 @@ Public Class frmMain
                 g.GameExt = cmbROMExt.Text
             End If
 
+            If chkIncludeMarquee.Checked Then
+                g.MarqueePath = txtMarqueeDir.Text
+            End If
+
             g.ShowProgress = True
 
             Dim i As Integer = g.CreateGAMELIST_XML()   'Call the function

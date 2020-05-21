@@ -259,14 +259,14 @@ Partial Class frmMain
         '
         'txtRomdir
         '
-        Me.txtRomdir.Location = New System.Drawing.Point(12, 320)
+        Me.txtRomdir.Location = New System.Drawing.Point(12, 310)
         Me.txtRomdir.Name = "txtRomdir"
         Me.txtRomdir.Size = New System.Drawing.Size(322, 20)
         Me.txtRomdir.TabIndex = 190
         '
         'btnROMDir
         '
-        Me.btnROMDir.Location = New System.Drawing.Point(332, 320)
+        Me.btnROMDir.Location = New System.Drawing.Point(332, 310)
         Me.btnROMDir.Name = "btnROMDir"
         Me.btnROMDir.Size = New System.Drawing.Size(24, 20)
         Me.btnROMDir.TabIndex = 195
@@ -276,7 +276,7 @@ Partial Class frmMain
         'chkROMDir
         '
         Me.chkROMDir.AutoSize = True
-        Me.chkROMDir.Location = New System.Drawing.Point(12, 303)
+        Me.chkROMDir.Location = New System.Drawing.Point(12, 293)
         Me.chkROMDir.Name = "chkROMDir"
         Me.chkROMDir.Size = New System.Drawing.Size(231, 17)
         Me.chkROMDir.TabIndex = 180
@@ -331,7 +331,7 @@ Partial Class frmMain
         'llabelOpenRomDir
         '
         Me.llabelOpenRomDir.AutoSize = True
-        Me.llabelOpenRomDir.Location = New System.Drawing.Point(257, 304)
+        Me.llabelOpenRomDir.Location = New System.Drawing.Point(257, 294)
         Me.llabelOpenRomDir.Name = "llabelOpenRomDir"
         Me.llabelOpenRomDir.Size = New System.Drawing.Size(77, 13)
         Me.llabelOpenRomDir.TabIndex = 185
@@ -367,7 +367,7 @@ Partial Class frmMain
         'chkIncludeFavourites
         '
         Me.chkIncludeFavourites.AutoSize = True
-        Me.chkIncludeFavourites.Location = New System.Drawing.Point(388, 303)
+        Me.chkIncludeFavourites.Location = New System.Drawing.Point(388, 293)
         Me.chkIncludeFavourites.Name = "chkIncludeFavourites"
         Me.chkIncludeFavourites.Size = New System.Drawing.Size(113, 17)
         Me.chkIncludeFavourites.TabIndex = 200
@@ -376,14 +376,14 @@ Partial Class frmMain
         '
         'txtFavouritesPath
         '
-        Me.txtFavouritesPath.Location = New System.Drawing.Point(388, 320)
+        Me.txtFavouritesPath.Location = New System.Drawing.Point(388, 310)
         Me.txtFavouritesPath.Name = "txtFavouritesPath"
         Me.txtFavouritesPath.Size = New System.Drawing.Size(322, 20)
         Me.txtFavouritesPath.TabIndex = 205
         '
         'btnFavPath
         '
-        Me.btnFavPath.Location = New System.Drawing.Point(708, 320)
+        Me.btnFavPath.Location = New System.Drawing.Point(708, 310)
         Me.btnFavPath.Name = "btnFavPath"
         Me.btnFavPath.Size = New System.Drawing.Size(24, 20)
         Me.btnFavPath.TabIndex = 210
@@ -419,7 +419,7 @@ Partial Class frmMain
         'chkIncludeMarquee
         '
         Me.chkIncludeMarquee.AutoSize = True
-        Me.chkIncludeMarquee.Location = New System.Drawing.Point(388, 129)
+        Me.chkIncludeMarquee.Location = New System.Drawing.Point(388, 128)
         Me.chkIncludeMarquee.Name = "chkIncludeMarquee"
         Me.chkIncludeMarquee.Size = New System.Drawing.Size(113, 17)
         Me.chkIncludeMarquee.TabIndex = 85
@@ -428,14 +428,14 @@ Partial Class frmMain
         '
         'txtMarqueeDir
         '
-        Me.txtMarqueeDir.Location = New System.Drawing.Point(388, 146)
+        Me.txtMarqueeDir.Location = New System.Drawing.Point(388, 145)
         Me.txtMarqueeDir.Name = "txtMarqueeDir"
         Me.txtMarqueeDir.Size = New System.Drawing.Size(322, 20)
         Me.txtMarqueeDir.TabIndex = 90
         '
         'btnMarqueeDir
         '
-        Me.btnMarqueeDir.Location = New System.Drawing.Point(708, 146)
+        Me.btnMarqueeDir.Location = New System.Drawing.Point(708, 145)
         Me.btnMarqueeDir.Name = "btnMarqueeDir"
         Me.btnMarqueeDir.Size = New System.Drawing.Size(24, 20)
         Me.btnMarqueeDir.TabIndex = 95
