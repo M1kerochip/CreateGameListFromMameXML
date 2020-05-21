@@ -75,6 +75,7 @@ Partial Class frmMain
         Me.cmbVideoExt = New System.Windows.Forms.ComboBox()
         Me.cmbScale = New System.Windows.Forms.ComboBox()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.chkPrettyXML = New System.Windows.Forms.CheckBox()
         Me.SuspendLayout()
         '
         'btnMameXMLPath
@@ -497,11 +498,24 @@ Partial Class frmMain
         Me.cmbScale.TabIndex = 165
         Me.cmbScale.Text = "100"
         '
+        'chkPrettyXML
+        '
+        Me.chkPrettyXML.AutoSize = True
+        Me.chkPrettyXML.Checked = True
+        Me.chkPrettyXML.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkPrettyXML.Location = New System.Drawing.Point(388, 346)
+        Me.chkPrettyXML.Name = "chkPrettyXML"
+        Me.chkPrettyXML.Size = New System.Drawing.Size(172, 17)
+        Me.chkPrettyXML.TabIndex = 241
+        Me.chkPrettyXML.Text = "Produce Pretty/Readable XML"
+        Me.chkPrettyXML.UseVisualStyleBackColor = True
+        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(744, 445)
+        Me.Controls.Add(Me.chkPrettyXML)
         Me.Controls.Add(Me.cmbScale)
         Me.Controls.Add(Me.lblVideoExtension)
         Me.Controls.Add(Me.cmbVideoExt)
@@ -609,4 +623,5 @@ Partial Class frmMain
     Friend WithEvents cmbVideoExt As ComboBox
     Friend WithEvents cmbScale As ComboBox
     Friend WithEvents ToolTip1 As ToolTip
+    Friend WithEvents chkPrettyXML As CheckBox
 End Class

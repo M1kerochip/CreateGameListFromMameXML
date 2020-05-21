@@ -111,41 +111,62 @@ Public Class frmMain
 
             g.GAMELIST_XML_Path = System.IO.Path.GetDirectoryName(txtMameXMLPath.Text) + "\gamelist.xml"
 
-            g.ImagePath = txtImages.Text.Trim
+            g.ImagePath = txtImages.Text.Trim                       'Set the path to the Snapshot files. Use images from here. Images in the format <ROMANAME>.png
 
             If chkHistoryDAT.Checked Then
-                g.HistoryDAT_Path = txtHistoryDATPath.Text.Trim
+                g.HistoryDAT_Path = txtHistoryDATPath.Text.Trim     'Set the History.dat file
             End If
 
             If chkIncludeMameInfo.Checked Then
-                g.MameInfoDAT_Path = txtMameInfoPath.Text
+                g.MameInfoDAT_Path = txtMameInfoPath.Text           'Set the MameInfo.dat file
             End If
 
-            g.ImageExtension = cmbImageExtension.Text.Trim
+            g.ImageExtension = cmbImageExtension.Text.Trim          'Set the Snapshot and Marquee image extension
 
             If chkImageAppend.Checked Then
-                g.ImageAppend = txtImageAppend.Text.Trim
+                g.ImageAppend = txtImageAppend.Text.Trim            'Append some text to the image name. useful if you have an already scraped image collection, and the image names are <ROMNAME>-image.png etc
             End If
 
             If chkImagePrepend.Checked Then
-                g.ImagePrepend = txtImagePrepend.Text.Trim
+                g.ImagePrepend = txtImagePrepend.Text.Trim          'Prepend some text to the image name.
             End If
 
             If chkVideoDir.Checked Then
-                g.VideoPath = txtVideoDir.Text.Trim
+                g.VideoPath = txtVideoDir.Text.Trim                 'Set the Video Path.
             End If
 
             If chkROMDir.Checked Then
-                g.ROMPath = txtRomdir.Text.Trim
+                g.ROMPath = txtRomdir.Text.Trim                     'Set the ROM file path. If set, only include games that exist in this directory, in gamename.xml
             End If
 
             If cmbROMExt.Text <> "" Then
-                g.GameExt = cmbROMExt.Text
+                g.GameExt = cmbROMExt.Text                          'Set the rom extension. Usually .zip but can be .7z
             End If
 
             If chkIncludeMarquee.Checked Then
-                g.MarqueePath = txtMarqueeDir.Text
+                g.MarqueePath = txtMarqueeDir.Text                  'Set the path to the Marquee image files.  Use Marquee images from here. Images in the format <ROMANAME>.png
             End If
+
+            If chkIncludeFavourites.Checked Then
+                If IO.File.Exists(txtFavouritesPath.Text) Then
+                    g.FavouritePath = txtFavouritesPath.Text
+                End If
+            End If
+
+            If chkIncludeGenre.Checked Then
+                If IO.File.Exists(txtGenereINIPath.Text) Then
+                    g.GenrePath = txtGenereINIPath.Text
+                End If
+            End If
+
+            If chkIncludeRating.Checked Then
+                If IO.File.Exists(txtRatingPath.Text) Then
+                    g.RatingPath = txtRatingPath.Text
+                    g.RatingScale = CInt(cmbScale.Text)
+                End If
+            End If
+
+            g.PrettyXML = chkPrettyXML.Checked
 
             g.ShowProgress = True
 

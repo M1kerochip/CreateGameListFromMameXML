@@ -117,6 +117,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="ReadDATFile.vb" />
+    <Compile Include="ReadFolderINI.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="frmGameListProgress.resx">
