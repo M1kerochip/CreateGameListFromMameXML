@@ -18,6 +18,11 @@
     Public Property RatingScale As Integer = 100
     Public Property FavouritePath As String = ""
     Public Property GenrePath As String = ""
+    Public Property HideRatedGamesWithScore As Boolean = False
+    Public Property HiddenScore As Integer = 30
+    Public Property HideBios As Boolean = True
+    Public Property HiddenListPath As String
+
 
     ''' <summary>
     ''' Path to the EmulationStation Gameslist.xml file to create and write to.
@@ -257,6 +262,9 @@
                                 st1 += "  Driver status: "
                                 st1 += xn(i).Item("driver").Attributes.GetNamedItem("status").InnerText.Trim                'Read MAME Driver Status
                             End If
+                            If st1 <> "" Then
+                                st1 += vbCrLf
+                            End If
                         End If
                         If HistoryDAT_Path <> "" Then                                   'If History.dat is not blank, include it in the <description>
                             st1 += History.GetData(Romfile) 'Include History in <description>
@@ -288,18 +296,59 @@
                             W.WriteEndElement()             'Close marquee
                         End If
 
+                        Dim writeHiddensection As Boolean = False                       'Define hidden section criteria
+
                         Try
-                            If RatingPath <> "" Then
-                                st1 = Rating.GetData(Romfile)
-                                If st1 <> "" Then
-                                    st1 = CStr(CDbl(st1) / RatingScale)
+                            If RatingPath <> "" Then                                    'If we are rating games
+                                st1 = Rating.GetData(Romfile)                           'Get Game Rating
+                                If st1 <> "" Then                                       'If game has a rating:
+                                    st1 = CStr(CDbl(st1) / RatingScale)                 'Work out rating from scale, and convert into ES rating scale (ie a % of 1)
                                     W.WriteStartElement(“rating”)   'Write rating
                                     W.WriteString(st1)
                                     W.WriteEndElement()             'Close rating
+
+                                    If HideRatedGamesWithScore = True Then              'If games have a score, and we want to hide scores below a certain level:
+                                        If CDbl(st1) <= CDbl(HiddenScore) / RatingScale Then    'Check score is equal to or below level
+                                            writeHiddensection = True                   'Critera matches; write hidden section for this game
+                                        End If
+                                    End If
                                 End If
                             End If
                         Catch
                         End Try
+
+                        If HideBios = True Then                                         'Hide Bios files in list
+                            If Not xn(i).Attributes.GetNamedItem("isbios").InnerText Is Nothing Then                        'Check MAME 'isbios' attribute exists in machine section in XML
+                                If xn(i).Attributes.GetNamedItem("isbios").InnerText.Trim = "yes" Then                      'Read Bios attribute.
+                                    writeHiddensection = True                               'Critera matches; write hidden section for this game
+                                End If
+                            End If
+                            If xn(i).Item("display") Is Nothing Then
+                                writeHiddensection = True                               'Critera matches; write hidden section for this game
+                            End If
+                            If Not xn(i).Attributes.GetNamedItem("runnable").InnerText Is Nothing Then                        'Check MAME 'isbios' attribute exists in machine section in XML
+                                If xn(i).Attributes.GetNamedItem("runnable").InnerText.Trim = "no" Then                      'Read Bios attribute.
+                                    writeHiddensection = True                               'Critera matches; write hidden section for this game
+                                End If
+                            End If
+                            If Not xn(i).Attributes.GetNamedItem("ismechanical").InnerText Is Nothing Then                        'Check MAME 'isbios' attribute exists in machine section in XML
+                                If xn(i).Attributes.GetNamedItem("ismechanical").InnerText.Trim = "yes" Then                      'Read Bios attribute.
+                                    writeHiddensection = True                               'Critera matches; write hidden section for this game
+                                End If
+                            End If
+                            If Not xn(i).Attributes.GetNamedItem("isdevice").InnerText Is Nothing Then                        'Check MAME 'isbios' attribute exists in machine section in XML
+                                If xn(i).Attributes.GetNamedItem("isdevice").InnerText.Trim = "yes" Then                      'Read Bios attribute.
+                                    writeHiddensection = True                               'Critera matches; write hidden section for this game
+                                End If
+                            End If
+                        End If
+
+
+                        If writeHiddensection = True Then
+                            W.WriteStartElement(“hidden”)   'Write hidden
+                            W.WriteString("true")
+                            W.WriteEndElement()             'Close hidden
+                        End If
 
                         If Not xn(i).Item("year") Is Nothing Then                                                           'Check MAME 'year' section exists in XML
                             st1 = xn(i).Item("year").InnerText.Trim + "0101T000000"                                         'Read MAME Year : and add Month, Day,T, Hours, Mins, Seconds to it

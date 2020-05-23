@@ -33,7 +33,7 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="SnapAppend" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">-image</Value>
     </Setting>
     <Setting Name="SnapExt" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
@@ -45,7 +45,7 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="IncludeXML" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="IncludeVideo" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>

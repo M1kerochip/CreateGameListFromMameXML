@@ -1,70 +1,96 @@
 ﻿Imports System.ComponentModel
 
 Public Class frmMain
+
+    Function AddTooltips() As Boolean
+        Try
+            ToolTip1.SetToolTip(btnCreateGameList, "Click to start the process, and create a gamelist.xml in the same directory as the mame input .xml")
+            ToolTip1.SetToolTip(btnCreateMameXML, "Set the mame exe path, and click to create a mame -listxml .xml. XML filename is saved to the version.xml path below")
+            ToolTip1.SetToolTip(txtMameEXEPath, "Path to the mame exe you want to create details for.")
+            ToolTip1.SetToolTip(txtMameXMLPath, "Path to the -listxml file you wish to use or create. .xml file must exist for gamelist.xml creation.")
+            ToolTip1.SetToolTip(txtImages, "Path to the images you've downloaded for Mame. If you have a previous set of scraped and downloaded images, you can use the append box below to append -image to the filename")
+            ToolTip1.SetToolTip(chkPrettyXML, "Create readable, indented XML. Only useful if you're going to edit the file by hand.")
+            ToolTip1.SetToolTip(txtFavouritesPath, "Set a folder.ini file here. If the romset exists in this file, it will be added to your favourites in Emulation Station")
+            ToolTip1.SetToolTip(chkHideBios, "Sets Bios, non runnable, screenless and mechanical sets to hidden.")
+            Return True
+        Catch ex As Exception
+            Return False
+        End Try
+    End Function
     Function ReadSettings() As Boolean
-        txtMameEXEPath.Text = My.Settings.MameEXE
-        txtMameXMLPath.Text = My.Settings.MameXML
-        chkVersionXML.Checked = My.Settings.IncludeXML
-        txtImages.Text = My.Settings.ScreenShotDir
-        txtImagePrepend.Text = My.Settings.SnapPrepend
-        chkImagePrepend.Checked = My.Settings.IncludeSnapPrepend
-        txtImageAppend.Text = My.Settings.SnapAppend
-        chkImageAppend.Checked = My.Settings.IncludeSnapAppend
-        cmbImageExtension.Text = My.Settings.SnapExt
-        txtHistoryDATPath.Text = My.Settings.HistoryDAT
-        chkHistoryDAT.Checked = My.Settings.IncludeHistory
-        txtMameInfoPath.Text = My.Settings.MameInfoDAT
-        chkIncludeMameInfo.Checked = My.Settings.IncludeMameInfo
-        txtVideoDir.Text = My.Settings.VideoDir
-        chkVideoDir.Checked = My.Settings.IncludeVideo
-        cmbVideoExt.Text = My.Settings.VideoExt
-        txtRomdir.Text = My.Settings.ROMDir
-        chkROMDir.Checked = My.Settings.IncludeROM
-        cmbROMExt.Text = My.Settings.RomExt
-        txtFavouritesPath.Text = My.Settings.FavouritesINI
-        chkIncludeFavourites.Checked = My.Settings.IncludeFavourite
-        txtRatingPath.Text = My.Settings.RatingINI
-        chkIncludeRating.Checked = My.Settings.IncludeRating
-        txtMarqueeDir.Text = My.Settings.MarqueeDir
-        chkIncludeMarquee.Checked = My.Settings.IncludeMarquee
-        txtGenereINIPath.Text = My.Settings.GenreINI
-        chkIncludeGenre.Checked = My.Settings.IncludeGenre
-        Return True
+        Try
+            txtMameEXEPath.Text = My.Settings.MameEXE
+            txtMameXMLPath.Text = My.Settings.MameXML
+            chkVersionXML.Checked = My.Settings.IncludeXML
+            txtImages.Text = My.Settings.ScreenShotDir
+            txtImagePrepend.Text = My.Settings.SnapPrepend
+            chkImagePrepend.Checked = My.Settings.IncludeSnapPrepend
+            txtImageAppend.Text = My.Settings.SnapAppend
+            chkImageAppend.Checked = My.Settings.IncludeSnapAppend
+            cmbImageExtension.Text = My.Settings.SnapExt
+            txtHistoryDATPath.Text = My.Settings.HistoryDAT
+            chkHistoryDAT.Checked = My.Settings.IncludeHistory
+            txtMameInfoPath.Text = My.Settings.MameInfoDAT
+            chkIncludeMameInfo.Checked = My.Settings.IncludeMameInfo
+            txtVideoDir.Text = My.Settings.VideoDir
+            chkVideoDir.Checked = My.Settings.IncludeVideo
+            cmbVideoExt.Text = My.Settings.VideoExt
+            txtRomdir.Text = My.Settings.ROMDir
+            chkROMDir.Checked = My.Settings.IncludeROM
+            cmbROMExt.Text = My.Settings.RomExt
+            txtFavouritesPath.Text = My.Settings.FavouritesINI
+            chkIncludeFavourites.Checked = My.Settings.IncludeFavourite
+            txtRatingPath.Text = My.Settings.RatingINI
+            chkIncludeRating.Checked = My.Settings.IncludeRating
+            txtMarqueeDir.Text = My.Settings.MarqueeDir
+            chkIncludeMarquee.Checked = My.Settings.IncludeMarquee
+            txtGenereINIPath.Text = My.Settings.GenreINI
+            chkIncludeGenre.Checked = My.Settings.IncludeGenre
+            Return True
+        Catch ex As Exception
+            Return False
+        End Try
     End Function
 
     Function WriteSettings() As Boolean
-        My.Settings.MameEXE = txtMameEXEPath.Text
-        My.Settings.MameXML = txtMameXMLPath.Text
-        My.Settings.IncludeXML = chkVersionXML.Checked
-        My.Settings.ScreenShotDir = txtImages.Text
-        My.Settings.SnapPrepend = txtImagePrepend.Text
-        My.Settings.IncludeSnapPrepend = chkImagePrepend.Checked
-        My.Settings.SnapAppend = txtImageAppend.Text
-        My.Settings.IncludeSnapAppend = chkImageAppend.Checked
-        My.Settings.SnapExt = cmbImageExtension.Text
-        My.Settings.HistoryDAT = txtHistoryDATPath.Text
-        My.Settings.IncludeHistory = chkHistoryDAT.Checked
-        My.Settings.MameInfoDAT = txtMameInfoPath.Text
-        My.Settings.IncludeMameInfo = chkIncludeMameInfo.Checked
-        My.Settings.VideoDir = txtVideoDir.Text
-        My.Settings.IncludeVideo = chkVideoDir.Checked
-        My.Settings.VideoExt = cmbVideoExt.Text
-        My.Settings.ROMDir = txtRomdir.Text
-        My.Settings.IncludeROM = chkROMDir.Checked
-        My.Settings.RomExt = cmbROMExt.Text
-        My.Settings.FavouritesINI = txtFavouritesPath.Text
-        My.Settings.IncludeFavourite = chkIncludeFavourites.Checked
-        My.Settings.RatingINI = txtRatingPath.Text
-        My.Settings.IncludeRating = chkIncludeRating.Checked
-        My.Settings.MarqueeDir = txtMarqueeDir.Text
-        My.Settings.IncludeMarquee = chkIncludeMarquee.Checked
-        My.Settings.GenreINI = txtGenereINIPath.Text
-        My.Settings.IncludeGenre = chkIncludeGenre.Checked
-        Return True
+        Try
+            My.Settings.MameEXE = txtMameEXEPath.Text
+            My.Settings.MameXML = txtMameXMLPath.Text
+            My.Settings.IncludeXML = chkVersionXML.Checked
+            My.Settings.ScreenShotDir = txtImages.Text
+            My.Settings.SnapPrepend = txtImagePrepend.Text
+            My.Settings.IncludeSnapPrepend = chkImagePrepend.Checked
+            My.Settings.SnapAppend = txtImageAppend.Text
+            My.Settings.IncludeSnapAppend = chkImageAppend.Checked
+            My.Settings.SnapExt = cmbImageExtension.Text
+            My.Settings.HistoryDAT = txtHistoryDATPath.Text
+            My.Settings.IncludeHistory = chkHistoryDAT.Checked
+            My.Settings.MameInfoDAT = txtMameInfoPath.Text
+            My.Settings.IncludeMameInfo = chkIncludeMameInfo.Checked
+            My.Settings.VideoDir = txtVideoDir.Text
+            My.Settings.IncludeVideo = chkVideoDir.Checked
+            My.Settings.VideoExt = cmbVideoExt.Text
+            My.Settings.ROMDir = txtRomdir.Text
+            My.Settings.IncludeROM = chkROMDir.Checked
+            My.Settings.RomExt = cmbROMExt.Text
+            My.Settings.FavouritesINI = txtFavouritesPath.Text
+            My.Settings.IncludeFavourite = chkIncludeFavourites.Checked
+            My.Settings.RatingINI = txtRatingPath.Text
+            My.Settings.IncludeRating = chkIncludeRating.Checked
+            My.Settings.MarqueeDir = txtMarqueeDir.Text
+            My.Settings.IncludeMarquee = chkIncludeMarquee.Checked
+            My.Settings.GenreINI = txtGenereINIPath.Text
+            My.Settings.IncludeGenre = chkIncludeGenre.Checked
+            Return True
+        Catch ex As Exception
+            Return False
+        End Try
     End Function
 
     Private Sub frmMain_Load(sender As Object, e As EventArgs) Handles Me.Load
+        Me.Text = "Create ES gamelist.xml  v" + My.Application.Info.Version.ToString
         ReadSettings()
+        AddTooltips()
     End Sub
 
     Private Sub frmMain_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
@@ -166,6 +192,25 @@ Public Class frmMain
                 End If
             End If
 
+            If chkHideLessThan.Checked = True Then
+                If IsNumeric(cmbHideLessThanNumber.Text) Then
+                    g.HideRatedGamesWithScore = True
+                    g.HiddenScore = CInt(cmbHideLessThanNumber.Text)
+                End If
+            End If
+
+            If chkAlsoRemoveINI.Checked Then
+                If IO.File.Exists(txtHiddenGames.Text) Then
+                    g.HiddenListPath = txtHiddenGames.Text
+                End If
+            End If
+
+            If chkHideBios.Checked Then
+                g.HideBios = True
+            Else
+                g.HideBios = False
+            End If
+
             g.PrettyXML = chkPrettyXML.Checked
 
             g.ShowProgress = True
@@ -239,4 +284,13 @@ Public Class frmMain
         End If
     End Sub
 
+    Private Sub llGithub_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llGithub.LinkClicked
+        System.Diagnostics.Process.Start("https://github.com/M1kerochip/CreateGameListFromMameXML")
+    End Sub
+
+    Private Sub llOpenXMLFolder_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llOpenXMLFolder.LinkClicked
+        If txtMameXMLPath.Text <> "" Then
+            System.Diagnostics.Process.Start("explorer.exe", "/n,/e," + IO.Path.GetDirectoryName(txtMameXMLPath.Text))
+        End If
+    End Sub
 End Class

@@ -76,6 +76,16 @@ Partial Class frmMain
         Me.cmbScale = New System.Windows.Forms.ComboBox()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.chkPrettyXML = New System.Windows.Forms.CheckBox()
+        Me.llGithub = New System.Windows.Forms.LinkLabel()
+        Me.llOpenXMLFolder = New System.Windows.Forms.LinkLabel()
+        Me.cmbHideLessThanNumber = New System.Windows.Forms.ComboBox()
+        Me.chkHideLessThan = New System.Windows.Forms.CheckBox()
+        Me.lblHideLess = New System.Windows.Forms.Label()
+        Me.chkAlsoRemoveINI = New System.Windows.Forms.CheckBox()
+        Me.txtHiddenGames = New System.Windows.Forms.TextBox()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.chkHideBios = New System.Windows.Forms.CheckBox()
+        Me.Button2 = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'btnMameXMLPath
@@ -370,9 +380,9 @@ Partial Class frmMain
         Me.chkIncludeFavourites.AutoSize = True
         Me.chkIncludeFavourites.Location = New System.Drawing.Point(388, 293)
         Me.chkIncludeFavourites.Name = "chkIncludeFavourites"
-        Me.chkIncludeFavourites.Size = New System.Drawing.Size(113, 17)
+        Me.chkIncludeFavourites.Size = New System.Drawing.Size(336, 17)
         Me.chkIncludeFavourites.TabIndex = 200
-        Me.chkIncludeFavourites.Text = "Include Favourites"
+        Me.chkIncludeFavourites.Text = "Include Favourites list (Games in this list have favourite set to true)"
         Me.chkIncludeFavourites.UseVisualStyleBackColor = True
         '
         'txtFavouritesPath
@@ -492,9 +502,9 @@ Partial Class frmMain
         '
         Me.cmbScale.FormattingEnabled = True
         Me.cmbScale.Items.AddRange(New Object() {"100", "10", "5"})
-        Me.cmbScale.Location = New System.Drawing.Point(650, 234)
+        Me.cmbScale.Location = New System.Drawing.Point(661, 234)
         Me.cmbScale.Name = "cmbScale"
-        Me.cmbScale.Size = New System.Drawing.Size(60, 21)
+        Me.cmbScale.Size = New System.Drawing.Size(49, 21)
         Me.cmbScale.TabIndex = 165
         Me.cmbScale.Text = "100"
         '
@@ -505,16 +515,120 @@ Partial Class frmMain
         Me.chkPrettyXML.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chkPrettyXML.Location = New System.Drawing.Point(388, 346)
         Me.chkPrettyXML.Name = "chkPrettyXML"
-        Me.chkPrettyXML.Size = New System.Drawing.Size(172, 17)
+        Me.chkPrettyXML.Size = New System.Drawing.Size(129, 17)
         Me.chkPrettyXML.TabIndex = 241
-        Me.chkPrettyXML.Text = "Produce Pretty/Readable XML"
+        Me.chkPrettyXML.Text = "Pretty/Readable XML"
         Me.chkPrettyXML.UseVisualStyleBackColor = True
+        '
+        'llGithub
+        '
+        Me.llGithub.AutoSize = True
+        Me.llGithub.Location = New System.Drawing.Point(658, 372)
+        Me.llGithub.Name = "llGithub"
+        Me.llGithub.Size = New System.Drawing.Size(74, 13)
+        Me.llGithub.TabIndex = 242
+        Me.llGithub.TabStop = True
+        Me.llGithub.Text = "Github Project"
+        '
+        'llOpenXMLFolder
+        '
+        Me.llOpenXMLFolder.AutoSize = True
+        Me.llOpenXMLFolder.Location = New System.Drawing.Point(260, 74)
+        Me.llOpenXMLFolder.Name = "llOpenXMLFolder"
+        Me.llOpenXMLFolder.Size = New System.Drawing.Size(74, 13)
+        Me.llOpenXMLFolder.TabIndex = 243
+        Me.llOpenXMLFolder.TabStop = True
+        Me.llOpenXMLFolder.Text = "Open XML Dir"
+        '
+        'cmbHideLessThanNumber
+        '
+        Me.cmbHideLessThanNumber.FormattingEnabled = True
+        Me.cmbHideLessThanNumber.Items.AddRange(New Object() {"0", "10", "20", "30", "40", "50", "60", "70", "80", "90"})
+        Me.cmbHideLessThanNumber.Location = New System.Drawing.Point(879, 255)
+        Me.cmbHideLessThanNumber.Name = "cmbHideLessThanNumber"
+        Me.cmbHideLessThanNumber.Size = New System.Drawing.Size(49, 21)
+        Me.cmbHideLessThanNumber.TabIndex = 244
+        Me.cmbHideLessThanNumber.Text = "20"
+        '
+        'chkHideLessThan
+        '
+        Me.chkHideLessThan.AutoSize = True
+        Me.chkHideLessThan.Location = New System.Drawing.Point(764, 257)
+        Me.chkHideLessThan.Name = "chkHideLessThan"
+        Me.chkHideLessThan.Size = New System.Drawing.Size(109, 17)
+        Me.chkHideLessThan.TabIndex = 245
+        Me.chkHideLessThan.Text = "Hide games rated"
+        Me.chkHideLessThan.UseVisualStyleBackColor = True
+        '
+        'lblHideLess
+        '
+        Me.lblHideLess.AutoSize = True
+        Me.lblHideLess.Location = New System.Drawing.Point(934, 258)
+        Me.lblHideLess.Name = "lblHideLess"
+        Me.lblHideLess.Size = New System.Drawing.Size(56, 13)
+        Me.lblHideLess.TabIndex = 246
+        Me.lblHideLess.Text = "and below"
+        '
+        'chkAlsoRemoveINI
+        '
+        Me.chkAlsoRemoveINI.AutoSize = True
+        Me.chkAlsoRemoveINI.Location = New System.Drawing.Point(764, 183)
+        Me.chkAlsoRemoveINI.Name = "chkAlsoRemoveINI"
+        Me.chkAlsoRemoveINI.Size = New System.Drawing.Size(111, 17)
+        Me.chkAlsoRemoveINI.TabIndex = 247
+        Me.chkAlsoRemoveINI.Text = "Hidden Games list"
+        Me.chkAlsoRemoveINI.UseVisualStyleBackColor = True
+        '
+        'txtHiddenGames
+        '
+        Me.txtHiddenGames.Location = New System.Drawing.Point(764, 200)
+        Me.txtHiddenGames.Name = "txtHiddenGames"
+        Me.txtHiddenGames.Size = New System.Drawing.Size(322, 20)
+        Me.txtHiddenGames.TabIndex = 248
+        '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(1084, 200)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(24, 20)
+        Me.Button1.TabIndex = 249
+        Me.Button1.Text = "..."
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'chkHideBios
+        '
+        Me.chkHideBios.AutoSize = True
+        Me.chkHideBios.Location = New System.Drawing.Point(1015, 257)
+        Me.chkHideBios.Name = "chkHideBios"
+        Me.chkHideBios.Size = New System.Drawing.Size(89, 17)
+        Me.chkHideBios.TabIndex = 250
+        Me.chkHideBios.Text = "Hide Bios etc"
+        Me.chkHideBios.UseVisualStyleBackColor = True
+        '
+        'Button2
+        '
+        Me.Button2.Location = New System.Drawing.Point(708, 343)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(24, 20)
+        Me.Button2.TabIndex = 251
+        Me.Button2.Text = ">"
+        Me.Button2.UseVisualStyleBackColor = True
         '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(744, 445)
+        Me.ClientSize = New System.Drawing.Size(1120, 445)
+        Me.Controls.Add(Me.Button2)
+        Me.Controls.Add(Me.chkHideBios)
+        Me.Controls.Add(Me.chkAlsoRemoveINI)
+        Me.Controls.Add(Me.txtHiddenGames)
+        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.lblHideLess)
+        Me.Controls.Add(Me.chkHideLessThan)
+        Me.Controls.Add(Me.cmbHideLessThanNumber)
+        Me.Controls.Add(Me.llOpenXMLFolder)
+        Me.Controls.Add(Me.llGithub)
         Me.Controls.Add(Me.chkPrettyXML)
         Me.Controls.Add(Me.cmbScale)
         Me.Controls.Add(Me.lblVideoExtension)
@@ -564,6 +678,8 @@ Partial Class frmMain
         Me.Controls.Add(Me.btnMameEXEPath)
         Me.Controls.Add(Me.btnMameXMLPath)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
         Me.Name = "frmMain"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Create ES Gamelist.xml"
@@ -624,4 +740,14 @@ Partial Class frmMain
     Friend WithEvents cmbScale As ComboBox
     Friend WithEvents ToolTip1 As ToolTip
     Friend WithEvents chkPrettyXML As CheckBox
+    Friend WithEvents llGithub As LinkLabel
+    Friend WithEvents llOpenXMLFolder As LinkLabel
+    Friend WithEvents cmbHideLessThanNumber As ComboBox
+    Friend WithEvents chkHideLessThan As CheckBox
+    Friend WithEvents lblHideLess As Label
+    Friend WithEvents chkAlsoRemoveINI As CheckBox
+    Friend WithEvents txtHiddenGames As TextBox
+    Friend WithEvents Button1 As Button
+    Friend WithEvents chkHideBios As CheckBox
+    Friend WithEvents Button2 As Button
 End Class
