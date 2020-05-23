@@ -83,9 +83,9 @@ Partial Class frmMain
         Me.lblHideLess = New System.Windows.Forms.Label()
         Me.chkAlsoRemoveINI = New System.Windows.Forms.CheckBox()
         Me.txtHiddenGames = New System.Windows.Forms.TextBox()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.btnHiddenGamesPath = New System.Windows.Forms.Button()
         Me.chkHideBios = New System.Windows.Forms.CheckBox()
-        Me.Button2 = New System.Windows.Forms.Button()
+        Me.btnWideForm = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'btnMameXMLPath
@@ -574,9 +574,9 @@ Partial Class frmMain
         Me.chkAlsoRemoveINI.AutoSize = True
         Me.chkAlsoRemoveINI.Location = New System.Drawing.Point(764, 183)
         Me.chkAlsoRemoveINI.Name = "chkAlsoRemoveINI"
-        Me.chkAlsoRemoveINI.Size = New System.Drawing.Size(111, 17)
+        Me.chkAlsoRemoveINI.Size = New System.Drawing.Size(262, 17)
         Me.chkAlsoRemoveINI.TabIndex = 247
-        Me.chkAlsoRemoveINI.Text = "Hidden Games list"
+        Me.chkAlsoRemoveINI.Text = "Hidden Games list (Set games in this list to hidden)"
         Me.chkAlsoRemoveINI.UseVisualStyleBackColor = True
         '
         'txtHiddenGames
@@ -586,14 +586,14 @@ Partial Class frmMain
         Me.txtHiddenGames.Size = New System.Drawing.Size(322, 20)
         Me.txtHiddenGames.TabIndex = 248
         '
-        'Button1
+        'btnHiddenGamesPath
         '
-        Me.Button1.Location = New System.Drawing.Point(1084, 200)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(24, 20)
-        Me.Button1.TabIndex = 249
-        Me.Button1.Text = "..."
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.btnHiddenGamesPath.Location = New System.Drawing.Point(1084, 200)
+        Me.btnHiddenGamesPath.Name = "btnHiddenGamesPath"
+        Me.btnHiddenGamesPath.Size = New System.Drawing.Size(24, 20)
+        Me.btnHiddenGamesPath.TabIndex = 249
+        Me.btnHiddenGamesPath.Text = "..."
+        Me.btnHiddenGamesPath.UseVisualStyleBackColor = True
         '
         'chkHideBios
         '
@@ -605,25 +605,25 @@ Partial Class frmMain
         Me.chkHideBios.Text = "Hide Bios etc"
         Me.chkHideBios.UseVisualStyleBackColor = True
         '
-        'Button2
+        'btnWideForm
         '
-        Me.Button2.Location = New System.Drawing.Point(708, 343)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(24, 20)
-        Me.Button2.TabIndex = 251
-        Me.Button2.Text = ">"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.btnWideForm.Location = New System.Drawing.Point(708, 343)
+        Me.btnWideForm.Name = "btnWideForm"
+        Me.btnWideForm.Size = New System.Drawing.Size(24, 20)
+        Me.btnWideForm.TabIndex = 251
+        Me.btnWideForm.Text = ">"
+        Me.btnWideForm.UseVisualStyleBackColor = True
         '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1120, 445)
-        Me.Controls.Add(Me.Button2)
+        Me.Controls.Add(Me.btnWideForm)
         Me.Controls.Add(Me.chkHideBios)
         Me.Controls.Add(Me.chkAlsoRemoveINI)
         Me.Controls.Add(Me.txtHiddenGames)
-        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.btnHiddenGamesPath)
         Me.Controls.Add(Me.lblHideLess)
         Me.Controls.Add(Me.chkHideLessThan)
         Me.Controls.Add(Me.cmbHideLessThanNumber)
@@ -747,7 +747,7 @@ Partial Class frmMain
     Friend WithEvents lblHideLess As Label
     Friend WithEvents chkAlsoRemoveINI As CheckBox
     Friend WithEvents txtHiddenGames As TextBox
-    Friend WithEvents Button1 As Button
+    Friend WithEvents btnHiddenGamesPath As Button
     Friend WithEvents chkHideBios As CheckBox
-    Friend WithEvents Button2 As Button
+    Friend WithEvents btnWideForm As Button
 End Class

@@ -23,7 +23,6 @@
     Public Property HideBios As Boolean = True
     Public Property HiddenListPath As String
 
-
     ''' <summary>
     ''' Path to the EmulationStation Gameslist.xml file to create and write to.
     ''' </summary>
@@ -205,6 +204,16 @@
                 Rating.LoadINI()
             End If
 
+            Dim HiddenList As New ReadFolderINI
+            If HiddenListPath <> "" Then
+                prgFrm.lblMain.Text = "Reading Hidden Games List ini file: " + HiddenListPath
+                prgFrm.Refresh()
+                HiddenList.FolderINI_Path = HiddenListPath
+                HiddenList.SkipSettingsAndRoot = True
+                HiddenList.StoreHeader = False
+                HiddenList.LoadINI()
+            End If
+
             Dim i As Integer
             Dim st1 As String = ""
             Dim Romfile As String = ""
@@ -317,32 +326,37 @@
                         Catch
                         End Try
 
-                        If HideBios = True Then                                         'Hide Bios files in list
-                            If Not xn(i).Attributes.GetNamedItem("isbios").InnerText Is Nothing Then                        'Check MAME 'isbios' attribute exists in machine section in XML
+                        If HideBios = True Then                                             'Hide Bios files in list
+                            If Not xn(i).Attributes.GetNamedItem("isbios").InnerText Is Nothing Then                        'Check MAME 'is this machine/system a bios only' attribute exists in machine section in XML
                                 If xn(i).Attributes.GetNamedItem("isbios").InnerText.Trim = "yes" Then                      'Read Bios attribute.
                                     writeHiddensection = True                               'Critera matches; write hidden section for this game
                                 End If
                             End If
-                            If xn(i).Item("display") Is Nothing Then
-                                writeHiddensection = True                               'Critera matches; write hidden section for this game
+                            If xn(i).Item("display") Is Nothing Then                                                        'Check MAME for 'Display' entries. Zero entries means screenless game/system.
+                                writeHiddensection = True                                   'Critera matches; write hidden section for this game
                             End If
-                            If Not xn(i).Attributes.GetNamedItem("runnable").InnerText Is Nothing Then                        'Check MAME 'isbios' attribute exists in machine section in XML
-                                If xn(i).Attributes.GetNamedItem("runnable").InnerText.Trim = "no" Then                      'Read Bios attribute.
+                            If Not xn(i).Attributes.GetNamedItem("runnable").InnerText Is Nothing Then                      'Check MAME 'is this a runnable game/system' attribute exists in machine section in XML
+                                If xn(i).Attributes.GetNamedItem("runnable").InnerText.Trim = "no" Then                     'Read Bios attribute.
                                     writeHiddensection = True                               'Critera matches; write hidden section for this game
                                 End If
                             End If
-                            If Not xn(i).Attributes.GetNamedItem("ismechanical").InnerText Is Nothing Then                        'Check MAME 'isbios' attribute exists in machine section in XML
-                                If xn(i).Attributes.GetNamedItem("ismechanical").InnerText.Trim = "yes" Then                      'Read Bios attribute.
+                            If Not xn(i).Attributes.GetNamedItem("ismechanical").InnerText Is Nothing Then                  'Check MAME 'is this a mechanical game/system' attribute exists in machine section in XML
+                                If xn(i).Attributes.GetNamedItem("ismechanical").InnerText.Trim = "yes" Then                'Read Bios attribute.
                                     writeHiddensection = True                               'Critera matches; write hidden section for this game
                                 End If
                             End If
-                            If Not xn(i).Attributes.GetNamedItem("isdevice").InnerText Is Nothing Then                        'Check MAME 'isbios' attribute exists in machine section in XML
-                                If xn(i).Attributes.GetNamedItem("isdevice").InnerText.Trim = "yes" Then                      'Read Bios attribute.
+                            If Not xn(i).Attributes.GetNamedItem("isdevice").InnerText Is Nothing Then                      'Check MAME 'is this a device?' attribute exists in machine section in XML
+                                If xn(i).Attributes.GetNamedItem("isdevice").InnerText.Trim = "yes" Then                    'Read Bios attribute.
                                     writeHiddensection = True                               'Critera matches; write hidden section for this game
                                 End If
                             End If
                         End If
 
+                        If HiddenListPath <> "" Then
+                            If HiddenList.GetDataB(Romfile) = True Then
+                                writeHiddensection = True                                   'Critera matches; write hidden section for this game
+                            End If
+                        End If
 
                         If writeHiddensection = True Then
                             W.WriteStartElement(“hidden”)   'Write hidden

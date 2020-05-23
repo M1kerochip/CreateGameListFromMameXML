@@ -89,6 +89,7 @@ Public Class frmMain
 
     Private Sub frmMain_Load(sender As Object, e As EventArgs) Handles Me.Load
         Me.Text = "Create ES gamelist.xml  v" + My.Application.Info.Version.ToString
+        Me.Width = 764
         ReadSettings()
         AddTooltips()
     End Sub
@@ -211,17 +212,23 @@ Public Class frmMain
                 g.HideBios = False
             End If
 
+            If chkAlsoRemoveINI.Checked Then
+                If IO.File.Exists(txtHiddenGames.Text) Then
+                    g.HiddenListPath = txtHiddenGames.Text
+                End If
+            End If
+
             g.PrettyXML = chkPrettyXML.Checked
 
-            g.ShowProgress = True
+                g.ShowProgress = True
 
-            Dim i As Integer = g.CreateGAMELIST_XML()   'Call the function
-            If i = 0 Then
-                MessageBox.Show("Successfully created")
-            Else
-                MessageBox.Show("Error: " + CStr(i))
+                Dim i As Integer = g.CreateGAMELIST_XML()   'Call the function
+                If i = 0 Then
+                    MessageBox.Show("Successfully created")
+                Else
+                    MessageBox.Show("Error: " + CStr(i))
+                End If
             End If
-        End If
     End Sub
 
     Private Sub BtnImageDir_Click(sender As Object, e As EventArgs) Handles btnImageDir.Click
@@ -291,6 +298,23 @@ Public Class frmMain
     Private Sub llOpenXMLFolder_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llOpenXMLFolder.LinkClicked
         If txtMameXMLPath.Text <> "" Then
             System.Diagnostics.Process.Start("explorer.exe", "/n,/e," + IO.Path.GetDirectoryName(txtMameXMLPath.Text))
+        End If
+    End Sub
+
+    Private Sub btnWideForm_Click(sender As Object, e As EventArgs) Handles btnWideForm.Click
+        If btnWideForm.Text = ">" Then
+            btnWideForm.Text = "<"
+            Me.Width = 1136
+
+        Else
+            btnWideForm.Text = ">"
+            Me.Width = 764
+        End If
+    End Sub
+
+    Private Sub btnHiddenGamesPath_Click(sender As Object, e As EventArgs) Handles btnHiddenGamesPath.Click
+        If OpenFileDialog1.ShowDialog = DialogResult.OK Then
+            txtHiddenGames.Text = OpenFileDialog1.FileName
         End If
     End Sub
 End Class
