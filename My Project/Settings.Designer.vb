@@ -401,6 +401,126 @@ Namespace My
                 Me("GenreINI") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property IncludeHiddenCat() As Boolean
+            Get
+                Return CType(Me("IncludeHiddenCat"),Boolean)
+            End Get
+            Set
+                Me("IncludeHiddenCat") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("mahjong;computer;casino;")>  _
+        Public Property HiddenCat() As String
+            Get
+                Return CType(Me("HiddenCat"),String)
+            End Get
+            Set
+                Me("HiddenCat") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property IncludeHiddenINI() As Boolean
+            Get
+                Return CType(Me("IncludeHiddenINI"),Boolean)
+            End Get
+            Set
+                Me("IncludeHiddenINI") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property HidenINI() As String
+            Get
+                Return CType(Me("HidenINI"),String)
+            End Get
+            Set
+                Me("HidenINI") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property IncludeHideBIOS() As Boolean
+            Get
+                Return CType(Me("IncludeHideBIOS"),Boolean)
+            End Get
+            Set
+                Me("IncludeHideBIOS") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property IncludeRatingHiddenGames() As Boolean
+            Get
+                Return CType(Me("IncludeRatingHiddenGames"),Boolean)
+            End Get
+            Set
+                Me("IncludeRatingHiddenGames") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property RatingHiddenAmount() As String
+            Get
+                Return CType(Me("RatingHiddenAmount"),String)
+            End Get
+            Set
+                Me("RatingHiddenAmount") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property IncludeFavGamesRating() As Boolean
+            Get
+                Return CType(Me("IncludeFavGamesRating"),Boolean)
+            End Get
+            Set
+                Me("IncludeFavGamesRating") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property RatingFavAmount() As String
+            Get
+                Return CType(Me("RatingFavAmount"),String)
+            End Get
+            Set
+                Me("RatingFavAmount") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property IncludeEmuStatusInDesc() As Boolean
+            Get
+                Return CType(Me("IncludeEmuStatusInDesc"),Boolean)
+            End Get
+            Set
+                Me("IncludeEmuStatusInDesc") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

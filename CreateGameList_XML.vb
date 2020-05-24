@@ -18,10 +18,28 @@
     Public Property RatingScale As Integer = 100
     Public Property FavouritePath As String = ""
     Public Property GenrePath As String = ""
+
+    ''' <summary>
+    ''' If ratings are enabled, and there's a rating list, set this to true to check to see if a game has a score lower than this. If so, set hidden to true.
+    ''' </summary>
+    ''' <returns></returns>
     Public Property HideRatedGamesWithScore As Boolean = False
+
     Public Property HiddenScore As Integer = 30
+
+    Public Property FavRatedGamesWithScore As Boolean = False
+    Public Property FavScore As Integer = 80
+
     Public Property HideBios As Boolean = True
     Public Property HiddenListPath As String
+
+    ''' <summary>
+    ''' Include Mame xml emulation status and driver status as first line of description
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property IncludeEmuStatus As Boolean = True
+
+    Public Property RemoveAdditionalCategories As String
 
     ''' <summary>
     ''' Path to the EmulationStation Gameslist.xml file to create and write to.
@@ -261,20 +279,23 @@
                         W.WriteEndElement()                 'Close Game Name
 
                         st1 = ""
-                        If Not xn(i).Item("driver") Is Nothing Then                                                         'Check MAME 'driver' section exists in XML
-                            If Not xn(i).Item("driver").Attributes.GetNamedItem("emulation").InnerText Is Nothing Then      'Check MAME 'emulatuon' section exists in 'driver' section in XML
-                                st1 = "Emulation status: "
-                                st1 += xn(i).Item("driver").Attributes.GetNamedItem("emulation").InnerText.Trim             'Read MAME Emulation Status
-                            End If
+                        If IncludeEmuStatus = True Then
+                            If Not xn(i).Item("driver") Is Nothing Then                                                         'Check MAME 'driver' section exists in XML
+                                If Not xn(i).Item("driver").Attributes.GetNamedItem("emulation").InnerText Is Nothing Then      'Check MAME 'emulatuon' section exists in 'driver' section in XML
+                                    st1 = "Emulation status: "
+                                    st1 += xn(i).Item("driver").Attributes.GetNamedItem("emulation").InnerText.Trim             'Read MAME Emulation Status
+                                End If
 
-                            If Not xn(i).Item("driver").Attributes.GetNamedItem("status").InnerText.Trim Is Nothing Then    'Check MAME 'status' section exists in 'driver' section in XML
-                                st1 += "  Driver status: "
-                                st1 += xn(i).Item("driver").Attributes.GetNamedItem("status").InnerText.Trim                'Read MAME Driver Status
-                            End If
-                            If st1 <> "" Then
-                                st1 += vbCrLf
+                                If Not xn(i).Item("driver").Attributes.GetNamedItem("status").InnerText.Trim Is Nothing Then    'Check MAME 'status' section exists in 'driver' section in XML
+                                    st1 += "  Driver status: "
+                                    st1 += xn(i).Item("driver").Attributes.GetNamedItem("status").InnerText.Trim                'Read MAME Driver Status
+                                End If
+                                If st1 <> "" Then
+                                    st1 += vbCrLf
+                                End If
                             End If
                         End If
+
                         If HistoryDAT_Path <> "" Then                                   'If History.dat is not blank, include it in the <description>
                             st1 += History.GetData(Romfile) 'Include History in <description>
                         End If
@@ -307,17 +328,18 @@
 
                         Dim writeHiddensection As Boolean = False                       'Define hidden section criteria
 
+                        Dim Ra As String = ""   'Holds Rating
                         Try
                             If RatingPath <> "" Then                                    'If we are rating games
-                                st1 = Rating.GetData(Romfile)                           'Get Game Rating
-                                If st1 <> "" Then                                       'If game has a rating:
-                                    st1 = CStr(CDbl(st1) / RatingScale)                 'Work out rating from scale, and convert into ES rating scale (ie a % of 1)
+                                Ra = Rating.GetData(Romfile)                            'Get Game Rating
+                                If Ra <> "" Then                                        'If game has a rating:
+                                    Ra = CStr(CDbl(Ra) / RatingScale)                   'Work out rating from scale, and convert into ES rating scale (ie a % of 1)
                                     W.WriteStartElement(“rating”)   'Write rating
-                                    W.WriteString(st1)
+                                    W.WriteString(Ra)
                                     W.WriteEndElement()             'Close rating
 
                                     If HideRatedGamesWithScore = True Then              'If games have a score, and we want to hide scores below a certain level:
-                                        If CDbl(st1) <= CDbl(HiddenScore) / RatingScale Then    'Check score is equal to or below level
+                                        If CDbl(Ra) <= CDbl(HiddenScore) / RatingScale Then    'Check score is equal to or below level
                                             writeHiddensection = True                   'Critera matches; write hidden section for this game
                                         End If
                                     End If
@@ -358,7 +380,23 @@
                             End If
                         End If
 
-                        If writeHiddensection = True Then
+                        Dim gp As String = "" 'Holds Genre                                                                  
+                        If GenrePath <> "" Then                                                                             'If an genre.ini file exists:
+                            gp = Genre.GetData(Romfile)                                                                     'Get genre from ini file
+                            If gp <> "" Then                                                                                'If the genre isn't blank:
+                                If RemoveAdditionalCategories <> "" Then                                                    'Check to see if there are additional genre's to remove:
+                                    For Each value As String In RemoveAdditionalCategories.Split(CType(";", Char()))        'If so, see if the genre for the game contains any of the [remove gnere] text entries
+                                        If value.Trim <> "" Then
+                                            If gp.ToUpper.Contains(value.ToUpper) Then
+                                                writeHiddensection = True                       'Critera matches; write hidden section for this game
+                                            End If
+                                        End If
+                                    Next
+                                End If
+                            End If
+                        End If
+
+                        If writeHiddensection = True Then                                                                   'If any of the above causes the rom to be hidden:
                             W.WriteStartElement(“hidden”)   'Write hidden
                             W.WriteString("true")
                             W.WriteEndElement()             'Close hidden
@@ -381,13 +419,10 @@
                             W.WriteEndElement()                 'Close publisher
                         End If
 
-                        If GenrePath <> "" Then
-                            st1 = Genre.GetData(Romfile)
-                            If st1 <> "" Then
-                                W.WriteStartElement(“genre”)        'Write genre
-                                W.WriteString(st1)
-                                W.WriteEndElement()                 'Close genre
-                            End If
+                        If gp <> "" Then                                                                                    'If a genre exists for the rom in the genre.ini file
+                            W.WriteStartElement(“genre”)        'Write genre
+                            W.WriteString(gp)
+                            W.WriteEndElement()                 'Close genre
                         End If
 
                         If Not xn(i).Item("input") Is Nothing Then                                                          'Check MAME 'input' section exists in XML
@@ -397,16 +432,31 @@
                             W.WriteEndElement()                 'Close players
                         End If
 
+                        Dim FavReq As Boolean = False
+                        Dim f As Boolean = False
+
                         If FavouritePath <> "" Then
-                            st1 = Fav.GetDataB(Romfile).ToString
-                            If st1 <> "" Then
-                                W.WriteStartElement(“favorite”)     'Write favorite
-                                W.WriteString(st1)
-                                W.WriteEndElement()                 'Close favorite
+                            f = Fav.GetDataB(Romfile)
+                            If f = True Then
+                                FavReq = True
                             End If
                         End If
 
-                        W.WriteEndElement()                 'Close Game Element
+                        If RatingPath <> "" Then
+                            If FavRatedGamesWithScore = True Then
+                                If CDbl(Ra) >= CDbl(FavScore) / RatingScale Then    'Check score is equal to or below level
+                                    FavReq = True                   'Critera matches; write hidden section for this game
+                                End If
+                            End If
+                        End If
+
+                        If FavReq = True Then
+                            W.WriteStartElement(“favorite”)     'Write favorite
+                            W.WriteString("true")
+                            W.WriteEndElement()                 'Close favorite
+                        End If
+
+                        W.WriteEndElement()                     'Close Game Element
                     End If
 
                     If ShowProgress Then

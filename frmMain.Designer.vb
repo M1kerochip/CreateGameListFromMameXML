@@ -86,6 +86,12 @@ Partial Class frmMain
         Me.btnHiddenGamesPath = New System.Windows.Forms.Button()
         Me.chkHideBios = New System.Windows.Forms.CheckBox()
         Me.btnWideForm = New System.Windows.Forms.Button()
+        Me.chkIncludeEmulationStatusInDesc = New System.Windows.Forms.CheckBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.chkFavGreaterThan = New System.Windows.Forms.CheckBox()
+        Me.cmbFavGreaterThanNumber = New System.Windows.Forms.ComboBox()
+        Me.chkHideCategories = New System.Windows.Forms.CheckBox()
+        Me.txtHideCategories = New System.Windows.Forms.TextBox()
         Me.SuspendLayout()
         '
         'btnMameXMLPath
@@ -572,7 +578,7 @@ Partial Class frmMain
         'chkAlsoRemoveINI
         '
         Me.chkAlsoRemoveINI.AutoSize = True
-        Me.chkAlsoRemoveINI.Location = New System.Drawing.Point(764, 183)
+        Me.chkAlsoRemoveINI.Location = New System.Drawing.Point(764, 128)
         Me.chkAlsoRemoveINI.Name = "chkAlsoRemoveINI"
         Me.chkAlsoRemoveINI.Size = New System.Drawing.Size(262, 17)
         Me.chkAlsoRemoveINI.TabIndex = 247
@@ -581,14 +587,14 @@ Partial Class frmMain
         '
         'txtHiddenGames
         '
-        Me.txtHiddenGames.Location = New System.Drawing.Point(764, 200)
+        Me.txtHiddenGames.Location = New System.Drawing.Point(764, 145)
         Me.txtHiddenGames.Name = "txtHiddenGames"
         Me.txtHiddenGames.Size = New System.Drawing.Size(322, 20)
         Me.txtHiddenGames.TabIndex = 248
         '
         'btnHiddenGamesPath
         '
-        Me.btnHiddenGamesPath.Location = New System.Drawing.Point(1084, 200)
+        Me.btnHiddenGamesPath.Location = New System.Drawing.Point(1084, 145)
         Me.btnHiddenGamesPath.Name = "btnHiddenGamesPath"
         Me.btnHiddenGamesPath.Size = New System.Drawing.Size(24, 20)
         Me.btnHiddenGamesPath.TabIndex = 249
@@ -614,11 +620,76 @@ Partial Class frmMain
         Me.btnWideForm.Text = ">"
         Me.btnWideForm.UseVisualStyleBackColor = True
         '
+        'chkIncludeEmulationStatusInDesc
+        '
+        Me.chkIncludeEmulationStatusInDesc.AutoSize = True
+        Me.chkIncludeEmulationStatusInDesc.Checked = True
+        Me.chkIncludeEmulationStatusInDesc.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkIncludeEmulationStatusInDesc.Location = New System.Drawing.Point(764, 368)
+        Me.chkIncludeEmulationStatusInDesc.Name = "chkIncludeEmulationStatusInDesc"
+        Me.chkIncludeEmulationStatusInDesc.Size = New System.Drawing.Size(246, 17)
+        Me.chkIncludeEmulationStatusInDesc.TabIndex = 252
+        Me.chkIncludeEmulationStatusInDesc.Text = "Include Emulation && Driver status in description"
+        Me.chkIncludeEmulationStatusInDesc.UseVisualStyleBackColor = True
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(956, 312)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(58, 13)
+        Me.Label1.TabIndex = 255
+        Me.Label1.Text = "and above"
+        '
+        'chkFavGreaterThan
+        '
+        Me.chkFavGreaterThan.AutoSize = True
+        Me.chkFavGreaterThan.Location = New System.Drawing.Point(764, 312)
+        Me.chkFavGreaterThan.Name = "chkFavGreaterThan"
+        Me.chkFavGreaterThan.Size = New System.Drawing.Size(131, 17)
+        Me.chkFavGreaterThan.TabIndex = 254
+        Me.chkFavGreaterThan.Text = "Favourite games rated"
+        Me.chkFavGreaterThan.UseVisualStyleBackColor = True
+        '
+        'cmbFavGreaterThanNumber
+        '
+        Me.cmbFavGreaterThanNumber.FormattingEnabled = True
+        Me.cmbFavGreaterThanNumber.Items.AddRange(New Object() {"0", "10", "20", "30", "40", "50", "60", "70", "80", "90"})
+        Me.cmbFavGreaterThanNumber.Location = New System.Drawing.Point(901, 309)
+        Me.cmbFavGreaterThanNumber.Name = "cmbFavGreaterThanNumber"
+        Me.cmbFavGreaterThanNumber.Size = New System.Drawing.Size(49, 21)
+        Me.cmbFavGreaterThanNumber.TabIndex = 253
+        Me.cmbFavGreaterThanNumber.Text = "80"
+        '
+        'chkHideCategories
+        '
+        Me.chkHideCategories.AutoSize = True
+        Me.chkHideCategories.Location = New System.Drawing.Point(764, 184)
+        Me.chkHideCategories.Name = "chkHideCategories"
+        Me.chkHideCategories.Size = New System.Drawing.Size(189, 17)
+        Me.chkHideCategories.TabIndex = 256
+        Me.chkHideCategories.Text = "Additionally, hide these categories:"
+        Me.chkHideCategories.UseVisualStyleBackColor = True
+        '
+        'txtHideCategories
+        '
+        Me.txtHideCategories.Location = New System.Drawing.Point(764, 201)
+        Me.txtHideCategories.Name = "txtHideCategories"
+        Me.txtHideCategories.Size = New System.Drawing.Size(340, 20)
+        Me.txtHideCategories.TabIndex = 257
+        Me.txtHideCategories.Text = "mahjong;computer;casino;"
+        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1120, 445)
+        Me.Controls.Add(Me.chkHideCategories)
+        Me.Controls.Add(Me.txtHideCategories)
+        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.chkFavGreaterThan)
+        Me.Controls.Add(Me.cmbFavGreaterThanNumber)
+        Me.Controls.Add(Me.chkIncludeEmulationStatusInDesc)
         Me.Controls.Add(Me.btnWideForm)
         Me.Controls.Add(Me.chkHideBios)
         Me.Controls.Add(Me.chkAlsoRemoveINI)
@@ -750,4 +821,10 @@ Partial Class frmMain
     Friend WithEvents btnHiddenGamesPath As Button
     Friend WithEvents chkHideBios As CheckBox
     Friend WithEvents btnWideForm As Button
+    Friend WithEvents chkIncludeEmulationStatusInDesc As CheckBox
+    Friend WithEvents Label1 As Label
+    Friend WithEvents chkFavGreaterThan As CheckBox
+    Friend WithEvents cmbFavGreaterThanNumber As ComboBox
+    Friend WithEvents chkHideCategories As CheckBox
+    Friend WithEvents txtHideCategories As TextBox
 End Class

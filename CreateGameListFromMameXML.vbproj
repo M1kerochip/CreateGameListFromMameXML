@@ -149,6 +149,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Examples\Blank_Favourite_GamesList.ini" />
+    <None Include="Examples\Blank_Hidden_GamesList.ini" />
+    <None Include="Examples\Blank_Rating_GamesList.ini" />
     <None Include="My Project\app.manifest" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
@@ -178,5 +181,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

@@ -46,6 +46,16 @@ Public Class frmMain
             chkIncludeMarquee.Checked = My.Settings.IncludeMarquee
             txtGenereINIPath.Text = My.Settings.GenreINI
             chkIncludeGenre.Checked = My.Settings.IncludeGenre
+            chkAlsoRemoveINI.Checked = My.Settings.IncludeHiddenINI
+            txtHiddenGames.Text = My.Settings.HidenINI
+            chkHideCategories.Checked = My.Settings.IncludeHiddenCat
+            txtHideCategories.Text = My.Settings.HiddenCat
+            chkHideLessThan.Checked = My.Settings.IncludeRatingHiddenGames
+            cmbHideLessThanNumber.Text = My.Settings.RatingHiddenAmount
+            chkHideBios.Checked = My.Settings.IncludeHideBIOS
+            chkFavGreaterThan.Checked = My.Settings.IncludeFavGamesRating
+            cmbFavGreaterThanNumber.Text = My.Settings.RatingFavAmount
+            chkIncludeEmulationStatusInDesc.Checked = My.Settings.IncludeEmuStatusInDesc
             Return True
         Catch ex As Exception
             Return False
@@ -81,6 +91,16 @@ Public Class frmMain
             My.Settings.IncludeMarquee = chkIncludeMarquee.Checked
             My.Settings.GenreINI = txtGenereINIPath.Text
             My.Settings.IncludeGenre = chkIncludeGenre.Checked
+            My.Settings.IncludeHiddenINI = chkAlsoRemoveINI.Checked
+            My.Settings.HidenINI = txtHiddenGames.Text
+            My.Settings.IncludeHiddenCat = chkHideCategories.Checked
+            My.Settings.HiddenCat = txtHideCategories.Text
+            My.Settings.IncludeRatingHiddenGames = chkHideLessThan.Checked
+            My.Settings.RatingHiddenAmount = cmbHideLessThanNumber.Text
+            My.Settings.IncludeHideBIOS = chkHideBios.Checked
+            My.Settings.IncludeFavGamesRating = chkFavGreaterThan.Checked
+            My.Settings.RatingFavAmount = cmbFavGreaterThanNumber.Text
+            My.Settings.IncludeEmuStatusInDesc = chkIncludeEmulationStatusInDesc.Checked
             Return True
         Catch ex As Exception
             Return False
@@ -218,17 +238,37 @@ Public Class frmMain
                 End If
             End If
 
-            g.PrettyXML = chkPrettyXML.Checked
+            If chkIncludeEmulationStatusInDesc.Checked Then
+                g.IncludeEmuStatus = True
+            Else
+                g.IncludeEmuStatus = False
+            End If
 
-                g.ShowProgress = True
-
-                Dim i As Integer = g.CreateGAMELIST_XML()   'Call the function
-                If i = 0 Then
-                    MessageBox.Show("Successfully created")
-                Else
-                    MessageBox.Show("Error: " + CStr(i))
+            If chkHideCategories.Checked Then
+                If txtHideCategories.Text <> "" Then
+                    g.RemoveAdditionalCategories = txtHideCategories.Text
                 End If
             End If
+
+            If chkFavGreaterThan.Checked Then
+                If IsNumeric(cmbFavGreaterThanNumber.Text) Then
+                    g.FavRatedGamesWithScore = True
+                    g.FavScore = CInt(cmbFavGreaterThanNumber.Text)
+                End If
+            End If
+
+            g.PrettyXML = chkPrettyXML.Checked
+
+            g.ShowProgress = True
+
+            Dim i As Integer = g.CreateGAMELIST_XML()   'Call the function
+
+            If i = 0 Then
+                MessageBox.Show("Successfully created")
+            Else
+                MessageBox.Show("Error: " + CStr(i))
+            End If
+        End If
     End Sub
 
     Private Sub BtnImageDir_Click(sender As Object, e As EventArgs) Handles btnImageDir.Click
@@ -305,7 +345,6 @@ Public Class frmMain
         If btnWideForm.Text = ">" Then
             btnWideForm.Text = "<"
             Me.Width = 1136
-
         Else
             btnWideForm.Text = ">"
             Me.Width = 764
@@ -317,4 +356,5 @@ Public Class frmMain
             txtHiddenGames.Text = OpenFileDialog1.FileName
         End If
     End Sub
+
 End Class
