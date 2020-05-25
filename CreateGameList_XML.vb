@@ -19,6 +19,10 @@
     Public Property FavouritePath As String = ""
     Public Property GenrePath As String = ""
 
+    Public Property HiddenDriverList As String = ""
+
+    Public Property ResultString As String = ""
+
     ''' <summary>
     ''' If ratings are enabled, and there's a rating list, set this to true to check to see if a game has a score lower than this. If so, set hidden to true.
     ''' </summary>
@@ -232,9 +236,15 @@
                 HiddenList.LoadINI()
             End If
 
-            Dim i As Integer
-            Dim st1 As String = ""
-            Dim Romfile As String = ""
+            Dim i As Integer                'Count of number of machine elements in the .xml file
+            Dim favouritedGames As Integer = 0
+            Dim hiddenGames As Integer = 0
+            Dim writtenGames As Integer = 0
+
+            Dim st1 As String = ""          'Blank String to hold results
+            Dim Romfile As String = ""      'Rom Name
+            Dim DriverName As String = ""   'Holds driver name eg cps1.cpp
+            Dim gp As String = ""           'Holds Genre 
 
             W.WriteStartDocument()                          'Begin XML Writer output.
 
@@ -250,6 +260,7 @@
             For i = 0 To xn.Count - 1
                 Try
                     Romfile = xn(i).Attributes.GetNamedItem("name").InnerText.Trim                                          'Read MAME Name (rom file/folder)
+                    DriverName = xn(i).Attributes.GetNamedItem("sourcefile").InnerText.Trim                                 'Read MAME source file name.
 
                     If ShowProgress Then
                         prgFrm.pbMain.Minimum = 0
@@ -380,7 +391,7 @@
                             End If
                         End If
 
-                        Dim gp As String = "" 'Holds Genre                                                                  
+
                         If GenrePath <> "" Then                                                                             'If an genre.ini file exists:
                             gp = Genre.GetData(Romfile)                                                                     'Get genre from ini file
                             If gp <> "" Then                                                                                'If the genre isn't blank:
@@ -388,7 +399,7 @@
                                     For Each value As String In RemoveAdditionalCategories.Split(CType(";", Char()))        'If so, see if the genre for the game contains any of the [remove gnere] text entries
                                         If value.Trim <> "" Then
                                             If gp.ToUpper.Contains(value.ToUpper) Then
-                                                writeHiddensection = True                       'Critera matches; write hidden section for this game
+                                                writeHiddensection = True                   'Critera matches; write hidden section for this game
                                             End If
                                         End If
                                     Next
@@ -396,10 +407,21 @@
                             End If
                         End If
 
+                        If HiddenDriverList <> "" Then
+                            For Each value As String In HiddenDriverList.Split(CType(";", Char()))        'If so, see if the genre for the game contains any of the [remove gnere] text entries
+                                If value.Trim <> "" Then
+                                    If DriverName.ToUpper = value.ToUpper Then
+                                        writeHiddensection = True                           'Critera matches; write hidden section for this game
+                                    End If
+                                End If
+                            Next
+                        End If
+
                         If writeHiddensection = True Then                                                                   'If any of the above causes the rom to be hidden:
                             W.WriteStartElement(“hidden”)   'Write hidden
                             W.WriteString("true")
                             W.WriteEndElement()             'Close hidden
+                            hiddenGames += 1
                         End If
 
                         If Not xn(i).Item("year") Is Nothing Then                                                           'Check MAME 'year' section exists in XML
@@ -454,9 +476,11 @@
                             W.WriteStartElement(“favorite”)     'Write favorite
                             W.WriteString("true")
                             W.WriteEndElement()                 'Close favorite
+                            favouritedGames += 1
                         End If
 
                         W.WriteEndElement()                     'Close Game Element
+                        writtenGames += 1
                     End If
 
                     If ShowProgress Then
@@ -475,6 +499,13 @@
             W.Close()                       'Close the class
             prgFrm.Close()
             prgFrm = Nothing
+
+            ResultString = "Machines in XML: " + CStr(i) + vbCrLf
+            ResultString += "Games written: " + CStr(writtenGames) + vbCrLf
+            ResultString += "Games favourited: " + CStr(favouritedGames) + vbCrLf
+            ResultString += "Games hidden: " + CStr(hiddenGames) + vbCrLf
+            ResultString += "Visible game count: " + CStr(writtenGames - hiddenGames)
+
             Return 0
         Catch ex As Exception
             Return -1

@@ -92,6 +92,8 @@ Partial Class frmMain
         Me.cmbFavGreaterThanNumber = New System.Windows.Forms.ComboBox()
         Me.chkHideCategories = New System.Windows.Forms.CheckBox()
         Me.txtHideCategories = New System.Windows.Forms.TextBox()
+        Me.chkAlsoRemoveDriver = New System.Windows.Forms.CheckBox()
+        Me.txtHiddenDrivers = New System.Windows.Forms.TextBox()
         Me.SuspendLayout()
         '
         'btnMameXMLPath
@@ -675,15 +677,34 @@ Partial Class frmMain
         '
         Me.txtHideCategories.Location = New System.Drawing.Point(764, 201)
         Me.txtHideCategories.Name = "txtHideCategories"
-        Me.txtHideCategories.Size = New System.Drawing.Size(340, 20)
+        Me.txtHideCategories.Size = New System.Drawing.Size(344, 20)
         Me.txtHideCategories.TabIndex = 257
         Me.txtHideCategories.Text = "mahjong;computer;casino;"
+        '
+        'chkAlsoRemoveDriver
+        '
+        Me.chkAlsoRemoveDriver.AutoSize = True
+        Me.chkAlsoRemoveDriver.Location = New System.Drawing.Point(764, 73)
+        Me.chkAlsoRemoveDriver.Name = "chkAlsoRemoveDriver"
+        Me.chkAlsoRemoveDriver.Size = New System.Drawing.Size(262, 17)
+        Me.chkAlsoRemoveDriver.TabIndex = 258
+        Me.chkAlsoRemoveDriver.Text = "Hidden Drivers list (Set games in this list to hidden)"
+        Me.chkAlsoRemoveDriver.UseVisualStyleBackColor = True
+        '
+        'txtHiddenDrivers
+        '
+        Me.txtHiddenDrivers.Location = New System.Drawing.Point(764, 90)
+        Me.txtHiddenDrivers.Name = "txtHiddenDrivers"
+        Me.txtHiddenDrivers.Size = New System.Drawing.Size(344, 20)
+        Me.txtHiddenDrivers.TabIndex = 259
         '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1120, 445)
+        Me.Controls.Add(Me.chkAlsoRemoveDriver)
+        Me.Controls.Add(Me.txtHiddenDrivers)
         Me.Controls.Add(Me.chkHideCategories)
         Me.Controls.Add(Me.txtHideCategories)
         Me.Controls.Add(Me.Label1)
@@ -827,4 +848,6 @@ Partial Class frmMain
     Friend WithEvents cmbFavGreaterThanNumber As ComboBox
     Friend WithEvents chkHideCategories As CheckBox
     Friend WithEvents txtHideCategories As TextBox
+    Friend WithEvents chkAlsoRemoveDriver As CheckBox
+    Friend WithEvents txtHiddenDrivers As TextBox
 End Class

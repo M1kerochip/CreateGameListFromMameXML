@@ -1,0 +1,19 @@
+﻿ Notes
+=======
+
+Sample settings.
+
+
+I prefer no text lines between the History.dat and and mameinfo.dat.
+To remove: open notepad++, Edit --> Line operations --> Remove empty lines.
+
+
+Genre's to remove (using AntoPISA's category.ini as genre list):
+computer;casino;calculator;coin pusher;electromechanical;medal game;medical equipment;music;printer;slot machine;cards;mahjong;telephone;utilities;gambling;misc.;multigame;game console;BIOS;device;hanafuda;senju;shougi;Slot Machine;Questions in Chinese;Questions in French;Questions in German;Questions in Greek;Questions in Italian;Questions in Japanese;Questions in Korean;Questions in Norwegian;Questions in Spanish;
+
+Also, maybe remove:
+handheld;quiz;
+
+
+Drivers to remove:
+taitoz.cpp;twinkle.cpp;triforce.cpp;ksys573.cpp;namcops2.cpp;gts1.cpp;segasp.cpp;lindbergh.cpp;playch10.cpp;nss.cpp;csplayh5.cpp;naomi.cpp;maccs.cpp;mpu4vid.cpp;gp_1.cpp;aristmk5.cpp;megatech.cpp;megaplay.cpp;viper.cpp;pyson.cpp;konendev.cpp;hng64.cpp;hikaru.cpp;iteagle.cpp;cubo.cpp;chihiro.cpp;cdi.cpp;aristmk6.cpp;alg.cpp;allied.cpp;3do.cpp;

@@ -56,6 +56,8 @@ Public Class frmMain
             chkFavGreaterThan.Checked = My.Settings.IncludeFavGamesRating
             cmbFavGreaterThanNumber.Text = My.Settings.RatingFavAmount
             chkIncludeEmulationStatusInDesc.Checked = My.Settings.IncludeEmuStatusInDesc
+            chkAlsoRemoveDriver.Checked = My.Settings.IncludeHiddenDriverList
+            txtHiddenDrivers.Text = My.Settings.HiddenDriverList
             Return True
         Catch ex As Exception
             Return False
@@ -101,6 +103,8 @@ Public Class frmMain
             My.Settings.IncludeFavGamesRating = chkFavGreaterThan.Checked
             My.Settings.RatingFavAmount = cmbFavGreaterThanNumber.Text
             My.Settings.IncludeEmuStatusInDesc = chkIncludeEmulationStatusInDesc.Checked
+            My.Settings.IncludeHiddenDriverList = chkAlsoRemoveDriver.Checked
+            My.Settings.HiddenDriverList = txtHiddenDrivers.Text
             Return True
         Catch ex As Exception
             Return False
@@ -238,6 +242,12 @@ Public Class frmMain
                 End If
             End If
 
+            If chkAlsoRemoveDriver.Checked Then
+                If txtHiddenDrivers.Text <> "" Then
+                    g.HiddenDriverList = txtHiddenDrivers.Text
+                End If
+            End If
+
             If chkIncludeEmulationStatusInDesc.Checked Then
                 g.IncludeEmuStatus = True
             Else
@@ -264,7 +274,7 @@ Public Class frmMain
             Dim i As Integer = g.CreateGAMELIST_XML()   'Call the function
 
             If i = 0 Then
-                MessageBox.Show("Successfully created")
+                MessageBox.Show("Successfully created" + vbCrLf + vbCrLf + g.ResultString)
             Else
                 MessageBox.Show("Error: " + CStr(i))
             End If

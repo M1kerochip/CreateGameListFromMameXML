@@ -521,6 +521,30 @@ Namespace My
                 Me("IncludeEmuStatusInDesc") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property IncludeHiddenDriverList() As Boolean
+            Get
+                Return CType(Me("IncludeHiddenDriverList"),Boolean)
+            End Get
+            Set
+                Me("IncludeHiddenDriverList") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property HiddenDriverList() As String
+            Get
+                Return CType(Me("HiddenDriverList"),String)
+            End Get
+            Set
+                Me("HiddenDriverList") = value
+            End Set
+        End Property
     End Class
 End Namespace
 
