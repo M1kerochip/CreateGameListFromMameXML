@@ -2,6 +2,7 @@
     Private p_MAME_EXE_Path As String
     Private p_MAME_XML_Path As String
 
+    Public Property CMDArguments As String = "-listxml"
 
     Public Property MAME_EXE_Path As String
         Get
@@ -34,8 +35,9 @@
                 Dim SR As IO.StreamReader
 
                 CMD.StartInfo.FileName = MAME_EXE_Path
-                CMD.StartInfo.Arguments = "-listxml"
+                CMD.StartInfo.Arguments = CMDArguments
                 CMD.StartInfo.UseShellExecute = False
+                CMD.StartInfo.WorkingDirectory = IO.Path.GetDirectoryName(MAME_EXE_Path)
                 CMD.StartInfo.RedirectStandardInput = True
                 CMD.StartInfo.RedirectStandardOutput = True
                 CMD.StartInfo.CreateNoWindow = True

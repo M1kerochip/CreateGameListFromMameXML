@@ -1,63 +1,85 @@
 ﻿Imports System.ComponentModel
 
+'TODO: add whitelisting for hidden in games (So, never set hidden=true, if game is in whitelist, regardless if game is bios, gamescore is too low etc.)
+
+'TODO: add whitelisting for favourites too?
+
 Public Class frmMain
 
     Function AddTooltips() As Boolean
         Try
-            ToolTip1.SetToolTip(btnCreateGameList, "Click to start the process, and create a gamelist.xml in the same directory as the mame input .xml")
-            ToolTip1.SetToolTip(btnCreateMameXML, "Set the mame exe path, and click to create a mame -listxml .xml. XML filename is saved to the version.xml path below")
-            ToolTip1.SetToolTip(txtMameEXEPath, "Path to the mame exe you want to create details for.")
-            ToolTip1.SetToolTip(txtMameXMLPath, "Path to the -listxml file you wish to use or create. .xml file must exist for gamelist.xml creation.")
-            ToolTip1.SetToolTip(txtImages, "Path to the images you've downloaded for Mame. If you have a previous set of scraped and downloaded images, you can use the append box below to append -image to the filename")
-            ToolTip1.SetToolTip(chkPrettyXML, "Create readable, indented XML. Only useful if you're going to edit the file by hand.")
-            ToolTip1.SetToolTip(txtFavouritesPath, "Set a folder.ini file here. If the romset exists in this file, it will be added to your favourites in Emulation Station")
-            ToolTip1.SetToolTip(chkHideBios, "Sets Bios, non runnable, screenless and mechanical sets to hidden.")
+            With ToolTip1
+                .SetToolTip(btnCreateGameList, "Click to start the process, and create a gamelist.xml in the same directory as the mame input .xml")
+                .SetToolTip(btnCreateMameXML, "Set the mame exe path and XML filename below. Click to create a mame -listxml .xml")
+                .SetToolTip(txtMameEXEPath, "Path to the mame exe you want to create details for.")
+                .SetToolTip(txtMameXMLPath, "Path to the XML file you wish to use or create. File name must exist for gamelist.xml creation.")
+                .SetToolTip(txtImages, "Path to the images you've downloaded for Mame. If you have a previous set of scraped and downloaded images, you can use the append box below to append -image to the filename")
+                .SetToolTip(chkPrettyXML, "Create readable, indented XML. Only useful if you're going to edit the file by hand.")
+                .SetToolTip(txtFavouritesPath, "Set a folder.ini file here. If the romset exists in this file, it will be added to your favourites in Emulation Station")
+                .SetToolTip(chkHideBios, "Sets Bios, non runnable, screenless and mechanical sets to hidden.")
+                .SetToolTip(txtImageAppend, "Adds this text to the end of an image name. eg. rom 005.zip has 005-image.png if previously scraped.")
+            End With
+            'TODO: add toolips for rest of options
             Return True
         Catch ex As Exception
             Return False
         End Try
     End Function
+
     Function ReadSettings() As Boolean
         Try
-            txtMameEXEPath.Text = My.Settings.MameEXE
-            txtMameXMLPath.Text = My.Settings.MameXML
-            chkVersionXML.Checked = My.Settings.IncludeXML
-            txtImages.Text = My.Settings.ScreenShotDir
-            txtImagePrepend.Text = My.Settings.SnapPrepend
-            chkImagePrepend.Checked = My.Settings.IncludeSnapPrepend
-            txtImageAppend.Text = My.Settings.SnapAppend
-            chkImageAppend.Checked = My.Settings.IncludeSnapAppend
-            cmbImageExtension.Text = My.Settings.SnapExt
-            txtHistoryDATPath.Text = My.Settings.HistoryDAT
-            chkHistoryDAT.Checked = My.Settings.IncludeHistory
-            txtMameInfoPath.Text = My.Settings.MameInfoDAT
-            chkIncludeMameInfo.Checked = My.Settings.IncludeMameInfo
-            txtVideoDir.Text = My.Settings.VideoDir
-            chkVideoDir.Checked = My.Settings.IncludeVideo
-            cmbVideoExt.Text = My.Settings.VideoExt
-            txtRomdir.Text = My.Settings.ROMDir
-            chkROMDir.Checked = My.Settings.IncludeROM
-            cmbROMExt.Text = My.Settings.RomExt
-            txtFavouritesPath.Text = My.Settings.FavouritesINI
-            chkIncludeFavourites.Checked = My.Settings.IncludeFavourite
-            txtRatingPath.Text = My.Settings.RatingINI
-            chkIncludeRating.Checked = My.Settings.IncludeRating
-            txtMarqueeDir.Text = My.Settings.MarqueeDir
-            chkIncludeMarquee.Checked = My.Settings.IncludeMarquee
-            txtGenereINIPath.Text = My.Settings.GenreINI
-            chkIncludeGenre.Checked = My.Settings.IncludeGenre
-            chkAlsoRemoveINI.Checked = My.Settings.IncludeHiddenINI
-            txtHiddenGames.Text = My.Settings.HidenINI
-            chkHideCategories.Checked = My.Settings.IncludeHiddenCat
-            txtHideCategories.Text = My.Settings.HiddenCat
-            chkHideLessThan.Checked = My.Settings.IncludeRatingHiddenGames
-            cmbHideLessThanNumber.Text = My.Settings.RatingHiddenAmount
-            chkHideBios.Checked = My.Settings.IncludeHideBIOS
-            chkFavGreaterThan.Checked = My.Settings.IncludeFavGamesRating
-            cmbFavGreaterThanNumber.Text = My.Settings.RatingFavAmount
-            chkIncludeEmulationStatusInDesc.Checked = My.Settings.IncludeEmuStatusInDesc
-            chkAlsoRemoveDriver.Checked = My.Settings.IncludeHiddenDriverList
-            txtHiddenDrivers.Text = My.Settings.HiddenDriverList
+            If My.Settings.UpdateSettings = True Then                       'Copy user settings from previous application version if necessary
+                My.Settings.Upgrade()
+                My.Settings.UpdateSettings = False
+                My.Settings.Save()
+            End If
+
+            With My.Settings
+                txtMameEXEPath.Text = .MameEXE
+                txtMameXMLPath.Text = .MameXML
+                chkVersionXML.Checked = .IncludeXML
+                txtImages.Text = .ScreenShotDir
+                txtImagePrepend.Text = .SnapPrepend
+                chkImagePrepend.Checked = .IncludeSnapPrepend
+                txtImageAppend.Text = .SnapAppend
+                chkImageAppend.Checked = .IncludeSnapAppend
+                cmbImageExtension.Text = .SnapExt
+                txtHistoryDATPath.Text = .HistoryDAT
+                chkHistoryDAT.Checked = .IncludeHistory
+                txtMameInfoPath.Text = .MameInfoDAT
+                chkIncludeMameInfo.Checked = .IncludeMameInfo
+                txtVideoDir.Text = .VideoDir
+                chkVideoDir.Checked = .IncludeVideo
+                cmbVideoExt.Text = .VideoExt
+                txtRomdir.Text = .ROMDir
+                chkROMDir.Checked = .IncludeROM
+                cmbROMExt.Text = .RomExt
+                txtFavouritesPath.Text = .FavouritesINI
+                chkIncludeFavourites.Checked = .IncludeFavourite
+                txtRatingPath.Text = .RatingINI
+                chkIncludeRating.Checked = .IncludeRating
+                txtMarqueeDir.Text = .MarqueeDir
+                chkIncludeMarquee.Checked = .IncludeMarquee
+                txtGenereINIPath.Text = .GenreINI
+                chkIncludeGenre.Checked = .IncludeGenre
+                chkAlsoRemoveINI.Checked = .IncludeHiddenINI
+                txtHiddenGames.Text = .HidenINI
+                chkHideCategories.Checked = .IncludeHiddenCat
+                txtHideCategories.Text = .HiddenCat
+                chkHideLessThan.Checked = .IncludeRatingHiddenGames
+                cmbHideLessThanNumber.Text = .RatingHiddenAmount
+                chkHideBios.Checked = .IncludeHideBIOS
+                chkFavGreaterThan.Checked = .IncludeFavGamesRating
+                cmbFavGreaterThanNumber.Text = .RatingFavAmount
+                chkIncludeEmulationStatusInDesc.Checked = .IncludeEmuStatusInDesc
+                chkAlsoRemoveDriver.Checked = .IncludeHiddenDriverList
+                txtHiddenDrivers.Text = .HiddenDriverList
+                txtFakeClonesDir.Text = .MoveFakeClonesDir
+                txtFakeZipDir.Text = .CreateFakeZipDir
+                chkCreateFakeZip.Checked = .IncludeCreateFakeZip
+                chkMoveFakeClones.Checked = .IncludeMoveFakeClones
+                chkDontHideFavGames.Checked = .DontHideFavList
+            End With
             Return True
         Catch ex As Exception
             Return False
@@ -66,56 +88,94 @@ Public Class frmMain
 
     Function WriteSettings() As Boolean
         Try
-            My.Settings.MameEXE = txtMameEXEPath.Text
-            My.Settings.MameXML = txtMameXMLPath.Text
-            My.Settings.IncludeXML = chkVersionXML.Checked
-            My.Settings.ScreenShotDir = txtImages.Text
-            My.Settings.SnapPrepend = txtImagePrepend.Text
-            My.Settings.IncludeSnapPrepend = chkImagePrepend.Checked
-            My.Settings.SnapAppend = txtImageAppend.Text
-            My.Settings.IncludeSnapAppend = chkImageAppend.Checked
-            My.Settings.SnapExt = cmbImageExtension.Text
-            My.Settings.HistoryDAT = txtHistoryDATPath.Text
-            My.Settings.IncludeHistory = chkHistoryDAT.Checked
-            My.Settings.MameInfoDAT = txtMameInfoPath.Text
-            My.Settings.IncludeMameInfo = chkIncludeMameInfo.Checked
-            My.Settings.VideoDir = txtVideoDir.Text
-            My.Settings.IncludeVideo = chkVideoDir.Checked
-            My.Settings.VideoExt = cmbVideoExt.Text
-            My.Settings.ROMDir = txtRomdir.Text
-            My.Settings.IncludeROM = chkROMDir.Checked
-            My.Settings.RomExt = cmbROMExt.Text
-            My.Settings.FavouritesINI = txtFavouritesPath.Text
-            My.Settings.IncludeFavourite = chkIncludeFavourites.Checked
-            My.Settings.RatingINI = txtRatingPath.Text
-            My.Settings.IncludeRating = chkIncludeRating.Checked
-            My.Settings.MarqueeDir = txtMarqueeDir.Text
-            My.Settings.IncludeMarquee = chkIncludeMarquee.Checked
-            My.Settings.GenreINI = txtGenereINIPath.Text
-            My.Settings.IncludeGenre = chkIncludeGenre.Checked
-            My.Settings.IncludeHiddenINI = chkAlsoRemoveINI.Checked
-            My.Settings.HidenINI = txtHiddenGames.Text
-            My.Settings.IncludeHiddenCat = chkHideCategories.Checked
-            My.Settings.HiddenCat = txtHideCategories.Text
-            My.Settings.IncludeRatingHiddenGames = chkHideLessThan.Checked
-            My.Settings.RatingHiddenAmount = cmbHideLessThanNumber.Text
-            My.Settings.IncludeHideBIOS = chkHideBios.Checked
-            My.Settings.IncludeFavGamesRating = chkFavGreaterThan.Checked
-            My.Settings.RatingFavAmount = cmbFavGreaterThanNumber.Text
-            My.Settings.IncludeEmuStatusInDesc = chkIncludeEmulationStatusInDesc.Checked
-            My.Settings.IncludeHiddenDriverList = chkAlsoRemoveDriver.Checked
-            My.Settings.HiddenDriverList = txtHiddenDrivers.Text
+            With My.Settings
+                .MameEXE = txtMameEXEPath.Text
+                .MameXML = txtMameXMLPath.Text
+                .IncludeXML = chkVersionXML.Checked
+                .ScreenShotDir = txtImages.Text
+                .SnapPrepend = txtImagePrepend.Text
+                .IncludeSnapPrepend = chkImagePrepend.Checked
+                .SnapAppend = txtImageAppend.Text
+                .IncludeSnapAppend = chkImageAppend.Checked
+                .SnapExt = cmbImageExtension.Text
+                .HistoryDAT = txtHistoryDATPath.Text
+                .IncludeHistory = chkHistoryDAT.Checked
+                .MameInfoDAT = txtMameInfoPath.Text
+                .IncludeMameInfo = chkIncludeMameInfo.Checked
+                .VideoDir = txtVideoDir.Text
+                .IncludeVideo = chkVideoDir.Checked
+                .VideoExt = cmbVideoExt.Text
+                .ROMDir = txtRomdir.Text
+                .IncludeROM = chkROMDir.Checked
+                .RomExt = cmbROMExt.Text
+                .FavouritesINI = txtFavouritesPath.Text
+                .IncludeFavourite = chkIncludeFavourites.Checked
+                .RatingINI = txtRatingPath.Text
+                .IncludeRating = chkIncludeRating.Checked
+                .MarqueeDir = txtMarqueeDir.Text
+                .IncludeMarquee = chkIncludeMarquee.Checked
+                .GenreINI = txtGenereINIPath.Text
+                .IncludeGenre = chkIncludeGenre.Checked
+                .IncludeHiddenINI = chkAlsoRemoveINI.Checked
+                .HidenINI = txtHiddenGames.Text
+                .IncludeHiddenCat = chkHideCategories.Checked
+                .HiddenCat = txtHideCategories.Text
+                .IncludeRatingHiddenGames = chkHideLessThan.Checked
+                .RatingHiddenAmount = cmbHideLessThanNumber.Text
+                .IncludeHideBIOS = chkHideBios.Checked
+                .IncludeFavGamesRating = chkFavGreaterThan.Checked
+                .RatingFavAmount = cmbFavGreaterThanNumber.Text
+                .IncludeEmuStatusInDesc = chkIncludeEmulationStatusInDesc.Checked
+                .IncludeHiddenDriverList = chkAlsoRemoveDriver.Checked
+                .HiddenDriverList = txtHiddenDrivers.Text
+                .MoveFakeClonesDir = txtFakeClonesDir.Text
+                .CreateFakeZipDir = txtFakeZipDir.Text
+                .IncludeCreateFakeZip = chkCreateFakeZip.Checked
+                .IncludeMoveFakeClones = chkMoveFakeClones.Checked
+                .DontHideFavList = chkDontHideFavGames.Checked
+            End With
             Return True
         Catch ex As Exception
             Return False
         End Try
     End Function
 
+    Function SetUpScreen() As Boolean
+        Try
+            Me.Text = "Create ES gamelist.xml  v" + My.Application.Info.Version.ToString
+            Me.Width = 764
+
+            ReadSettings()
+
+            AddTooltips()
+
+            txtFavouritesPath.Enabled = chkIncludeFavourites.Checked
+            txtRatingPath.Enabled = chkIncludeRating.Checked
+            txtGenereINIPath.Enabled = chkIncludeGenre.Checked
+            txtMarqueeDir.Enabled = chkIncludeMarquee.Checked
+            txtMameInfoPath.Enabled = chkIncludeMameInfo.Checked
+            txtHistoryDATPath.Enabled = chkHistoryDAT.Checked
+            txtRomdir.Enabled = chkROMDir.Checked
+            txtVideoDir.Enabled = chkVideoDir.Checked
+            txtImagePrepend.Enabled = chkImagePrepend.Checked
+            txtImageAppend.Enabled = chkImageAppend.Checked
+            txtFakeZipDir.Enabled = chkCreateFakeZip.Checked
+            txtFakeClonesDir.Enabled = chkMoveFakeClones.Checked
+            cmbFavGreaterThanNumber.Enabled = chkFavGreaterThan.Checked
+            cmbHideLessThanNumber.Enabled = chkHideLessThan.Checked
+            txtHideCategories.Enabled = chkHideCategories.Checked
+            txtHiddenGames.Enabled = chkAlsoRemoveINI.Checked
+            txtHiddenDrivers.Enabled = chkAlsoRemoveDriver.Checked
+
+            Me.ValidateChildren() 'Triggers validation for all text boxes, etc on the form
+
+            Return True
+        Catch ex As Exception
+            Return False
+        End Try
+    End Function
     Private Sub frmMain_Load(sender As Object, e As EventArgs) Handles Me.Load
-        Me.Text = "Create ES gamelist.xml  v" + My.Application.Info.Version.ToString
-        Me.Width = 764
-        ReadSettings()
-        AddTooltips()
+        SetUpScreen()
     End Sub
 
     Private Sub frmMain_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
@@ -123,17 +183,41 @@ Public Class frmMain
     End Sub
 
     Private Sub btnCreateMameXML_Click(sender As Object, e As EventArgs) Handles btnCreateMameXML.Click
-        If MessageBox.Show("Create XML from MAME?", "Read MAME -listinfo", MessageBoxButtons.YesNo) = vbYes Then
-            Dim m As New CreateListInfoXMLfromMAME
-            m.MAME_EXE_Path = txtMameEXEPath.Text
-            m.MAME_XML_Path = txtMameXMLPath.Text
-            Dim i As Integer = m.GenerateXML
-            If i = 0 Then
-                MessageBox.Show("Successfully created")
-            Else
-                MessageBox.Show("Error: " + CStr(i))
+        Dim res As DialogResult
+        'TODO: add custom dialog form for software list creation
+        res = MessageBox.Show("Click 'YES' to create a standard MAME -listinfo list" + vbCrLf + " or" + vbCrLf + "Click 'NO' to create a MAME -listsoftware <system_list_name> list", "Select MAME XML Creation Options", MessageBoxButtons.YesNoCancel)
+        If res = vbYes Then
+            If MessageBox.Show("Ready to create XML from MAME?", "Read MAME -listinfo", MessageBoxButtons.YesNo) = vbYes Then
+                Dim m As New CreateListInfoXMLfromMAME
+                m.MAME_EXE_Path = txtMameEXEPath.Text
+                m.MAME_XML_Path = txtMameXMLPath.Text
+                Dim i As Integer = m.GenerateXML
+                If i = 0 Then
+                    MessageBox.Show("Successfully created")
+                Else
+                    MessageBox.Show("Error: " + CStr(i))
+                End If
+            End If
+        Else
+            If res = DialogResult.No Then
+                Dim res2 As String = InputBox("Please enter the softwarelist to create", "Create SoftwareList. Remember to check 'Load Softwarelist' when importing", "neogeo")
+                If res2 <> "" Then
+                    If MessageBox.Show("Ready to create softwarelist XML from MAME for system: " + res2 + " ?", "Read MAME -listsoftware " + res2, MessageBoxButtons.YesNo) = vbYes Then
+                        Dim m As New CreateListInfoXMLfromMAME
+                        m.CMDArguments = "-listsoftware " + res2
+                        m.MAME_EXE_Path = txtMameEXEPath.Text
+                        m.MAME_XML_Path = txtMameXMLPath.Text
+                        Dim i As Integer = m.GenerateXML
+                        If i = 0 Then
+                            MessageBox.Show("Successfully created")
+                        Else
+                            MessageBox.Show("Error: " + CStr(i))
+                        End If
+                    End If
+                End If
             End If
         End If
+
     End Sub
 
     Private Sub BtnMameXMLPath_Click(sender As Object, e As EventArgs) Handles btnMameXMLPath.Click
@@ -191,7 +275,7 @@ Public Class frmMain
             End If
 
             If cmbROMExt.Text <> "" Then
-                g.GameExt = cmbROMExt.Text                          'Set the rom extension. Usually .zip but can be .7z
+                g.GameExt = cmbROMExt.Text                          'Set the rom extension. Usually .zip but can be .7z, etc
             End If
 
             If chkIncludeMarquee.Checked Then
@@ -200,7 +284,7 @@ Public Class frmMain
 
             If chkIncludeFavourites.Checked Then
                 If IO.File.Exists(txtFavouritesPath.Text) Then
-                    g.FavouritePath = txtFavouritesPath.Text
+                    g.FavouritePath = txtFavouritesPath.Text        'If a folder.ini exists with list of games, use this as the favourites ini path.
                 End If
             End If
 
@@ -269,14 +353,47 @@ Public Class frmMain
 
             g.PrettyXML = chkPrettyXML.Checked
 
+            If chkIsSoftwareList.Checked Then
+                g.IsSoftwareList = True
+            Else
+                g.IsSoftwareList = False
+            End If
+
+            If chkCreateFakeZip.Checked Then
+                g.CreateEmptyZip = txtFakeZipDir.Text
+                If chkMoveFakeClones.Checked Then
+                    If Not IO.Directory.Exists(IO.Path.Combine(txtFakeZipDir.Text, txtFakeClonesDir.Text)) Then
+                        Try
+                            IO.Directory.CreateDirectory(IO.Path.Combine(txtFakeZipDir.Text, txtFakeClonesDir.Text))
+                        Catch ex As Exception
+                        End Try
+                    End If
+                    g.MoveEmptyZipClonesDir = txtFakeClonesDir.Text
+                End If
+            End If
+
+            If chkScanSubFolders.Checked Then
+                g.SearchRomSubDirs = True
+            End If
+
+            If chkDontHideFavGames.Checked = True Then
+                g.DontHideFavGame = True
+            Else
+                g.DontHideFavGame = False
+            End If
+
             g.ShowProgress = True
 
+            Me.Enabled = False
+
             Dim i As Integer = g.CreateGAMELIST_XML()   'Call the function
+
+            Me.Enabled = True
 
             If i = 0 Then
                 MessageBox.Show("Successfully created" + vbCrLf + vbCrLf + g.ResultString)
             Else
-                MessageBox.Show("Error: " + CStr(i))
+                MessageBox.Show("Error: " + CStr(i) + vbCrLf + g.ResultString)
             End If
         End If
     End Sub
@@ -367,4 +484,209 @@ Public Class frmMain
         End If
     End Sub
 
+    Private Sub btnSetFakeZipDir_Click(sender As Object, e As EventArgs) Handles btnSetFakeZipDir.Click
+        If FolderBrowserDialog1.ShowDialog = DialogResult.OK Then
+            txtFakeZipDir.Text = FolderBrowserDialog1.SelectedPath
+        End If
+    End Sub
+
+    Private Sub chkIncludeFavourites_CheckedChanged(sender As Object, e As EventArgs) Handles chkIncludeFavourites.CheckedChanged
+        txtFavouritesPath.Enabled = chkIncludeFavourites.Checked
+    End Sub
+
+    Private Sub chkIncludeRating_CheckedChanged(sender As Object, e As EventArgs) Handles chkIncludeRating.CheckedChanged
+        txtRatingPath.Enabled = chkIncludeRating.Checked
+    End Sub
+
+    Private Sub chkIncludeGenre_CheckedChanged(sender As Object, e As EventArgs) Handles chkIncludeGenre.CheckedChanged
+        txtGenereINIPath.Enabled = chkIncludeGenre.Checked
+    End Sub
+
+    Private Sub chkIncludeMarquee_CheckedChanged(sender As Object, e As EventArgs) Handles chkIncludeMarquee.CheckedChanged
+        txtMarqueeDir.Enabled = chkIncludeMarquee.Checked
+    End Sub
+
+    Private Sub chkIncludeMameInfo_CheckedChanged(sender As Object, e As EventArgs) Handles chkIncludeMameInfo.CheckedChanged
+        txtMameInfoPath.Enabled = chkIncludeMameInfo.Checked
+    End Sub
+
+    Private Sub chkHistoryDAT_CheckedChanged(sender As Object, e As EventArgs) Handles chkHistoryDAT.CheckedChanged
+        txtHistoryDATPath.Enabled = chkHistoryDAT.Checked
+    End Sub
+
+    Private Sub chkROMDir_CheckedChanged(sender As Object, e As EventArgs) Handles chkROMDir.CheckedChanged
+        txtRomdir.Enabled = chkROMDir.Checked
+    End Sub
+
+    Private Sub chkVideoDir_CheckedChanged(sender As Object, e As EventArgs) Handles chkVideoDir.CheckedChanged
+        txtVideoDir.Enabled = chkVideoDir.Checked
+    End Sub
+
+    Private Sub chkImagePrepend_CheckedChanged(sender As Object, e As EventArgs) Handles chkImagePrepend.CheckedChanged
+        txtImagePrepend.Enabled = chkImagePrepend.Checked
+    End Sub
+
+    Private Sub chkImageAppend_CheckedChanged(sender As Object, e As EventArgs) Handles chkImageAppend.CheckedChanged
+        txtImageAppend.Enabled = chkImageAppend.Checked
+    End Sub
+
+    Private Sub chkCreateFakeZip_CheckedChanged(sender As Object, e As EventArgs) Handles chkCreateFakeZip.CheckedChanged
+        txtFakeZipDir.Enabled = chkCreateFakeZip.Checked
+    End Sub
+
+    Private Sub chkMoveFakeClones_CheckedChanged(sender As Object, e As EventArgs) Handles chkMoveFakeClones.CheckedChanged
+        txtFakeClonesDir.Enabled = chkMoveFakeClones.Checked
+    End Sub
+
+    Private Sub chkFavGreaterThan_CheckedChanged(sender As Object, e As EventArgs) Handles chkFavGreaterThan.CheckedChanged
+        cmbFavGreaterThanNumber.Enabled = chkFavGreaterThan.Checked
+    End Sub
+
+    Private Sub chkHideLessThan_CheckedChanged(sender As Object, e As EventArgs) Handles chkHideLessThan.CheckedChanged
+        cmbHideLessThanNumber.Enabled = chkHideLessThan.Checked
+    End Sub
+
+    Private Sub chkHideCategories_CheckedChanged(sender As Object, e As EventArgs) Handles chkHideCategories.CheckedChanged
+        txtHideCategories.Enabled = chkHideCategories.Checked
+    End Sub
+
+    Private Sub chkAlsoRemoveINI_CheckedChanged(sender As Object, e As EventArgs) Handles chkAlsoRemoveINI.CheckedChanged
+        txtHiddenGames.Enabled = chkAlsoRemoveINI.Checked
+    End Sub
+
+    Private Sub chkAlsoRemoveDriver_CheckedChanged(sender As Object, e As EventArgs) Handles chkAlsoRemoveDriver.CheckedChanged
+        txtHiddenDrivers.Enabled = chkAlsoRemoveDriver.Checked
+    End Sub
+
+    'TODO: Add Visual Error Checking for rest of form
+
+    Private Sub txtMameEXEPath_Validating(sender As Object, e As CancelEventArgs) Handles txtMameEXEPath.Validating
+        If Not IO.File.Exists(txtMameEXEPath.Text) Then
+            ErrorProviderMain.SetError(txtMameEXEPath, "Unable to find MAME .exe file")
+        Else
+            ErrorProviderMain.SetError(txtMameEXEPath, "")
+        End If
+    End Sub
+
+    Private Sub txtImages_Validating(sender As Object, e As CancelEventArgs) Handles txtImages.Validating
+        If Not IO.Directory.Exists(txtImages.Text) Then
+            ErrorProviderMain.SetError(txtImages, "Image file directory doesn't exist")
+        Else
+            ErrorProviderMain.SetError(txtImages, "")
+        End If
+    End Sub
+
+    Private Sub txtRomdir_Validating(sender As Object, e As CancelEventArgs) Handles txtRomdir.Validating
+        If Not IO.Directory.Exists(txtRomdir.Text) Then
+            ErrorProviderMain.SetError(txtRomdir, "ROM file directory doesn't exist")
+        Else
+            ErrorProviderMain.SetError(txtRomdir, "")
+        End If
+    End Sub
+
+    Private Sub txtVideoDir_Validating(sender As Object, e As CancelEventArgs) Handles txtVideoDir.Validating
+        If Not IO.Directory.Exists(txtVideoDir.Text) Then
+            ErrorProviderMain.SetError(txtVideoDir, "Video file directory doesn't exist")
+        Else
+            ErrorProviderMain.SetError(txtVideoDir, "")
+        End If
+    End Sub
+
+    Private Sub cmbROMExt_Validating(sender As Object, e As CancelEventArgs) Handles cmbROMExt.Validating
+        If Not cmbROMExt.Text.Contains(".") Then
+            ErrorProviderMain.SetError(cmbROMExt, "Rom file extension must contain a period")
+        Else
+            ErrorProviderMain.SetError(cmbROMExt, "")
+        End If
+    End Sub
+
+    Private Sub cmbVideoExt_Validating(sender As Object, e As CancelEventArgs) Handles cmbVideoExt.Validating
+        If cmbVideoExt.Enabled = True Then
+            If Not cmbVideoExt.Text.Contains(".") Then
+                ErrorProviderMain.SetError(cmbVideoExt, "Video file extension must contain a period")
+            Else
+                ErrorProviderMain.SetError(cmbVideoExt, "")
+            End If
+        End If
+    End Sub
+
+    Private Sub txtMameInfoPath_Validating(sender As Object, e As CancelEventArgs) Handles txtMameInfoPath.Validating
+        If txtMameInfoPath.Enabled = True Then
+            If Not IO.File.Exists(txtMameInfoPath.Text) Then
+                ErrorProviderMain.SetError(txtMameInfoPath, "Mame Info DAT file doesn't exist")
+            Else
+                ErrorProviderMain.SetError(txtMameInfoPath, "")
+            End If
+        End If
+    End Sub
+
+    Private Sub txtMameXMLPath_Validating(sender As Object, e As CancelEventArgs) Handles txtMameXMLPath.Validating
+        If Not IO.File.Exists(txtMameXMLPath.Text) Then
+            ErrorProviderMain.SetError(txtMameXMLPath, "Mame XML file doesn't exist. Please create it, or select the an existing file.")
+        Else
+            ErrorProviderMain.SetError(txtMameXMLPath, "")
+        End If
+    End Sub
+
+    Private Sub txtMarqueeDir_Validating(sender As Object, e As CancelEventArgs) Handles txtMarqueeDir.Validating
+        If Not IO.Directory.Exists(txtMarqueeDir.Text) Then
+            ErrorProviderMain.SetError(txtMarqueeDir, "Marquee file directory doesn't exist")
+        Else
+            ErrorProviderMain.SetError(txtMarqueeDir, "")
+        End If
+    End Sub
+
+    Private Sub txtHistoryDATPath_Validating(sender As Object, e As CancelEventArgs) Handles txtHistoryDATPath.Validating
+        If txtHistoryDATPath.Enabled = True Then
+            If Not IO.File.Exists(txtHistoryDATPath.Text) Then
+                ErrorProviderMain.SetError(txtHistoryDATPath, "Mame History DAT file doesn't exist")
+            Else
+                ErrorProviderMain.SetError(txtHistoryDATPath, "")
+            End If
+        End If
+    End Sub
+
+    Private Sub txtGenereINIPath_Validating(sender As Object, e As CancelEventArgs) Handles txtGenereINIPath.Validating
+        If txtGenereINIPath.Enabled = True Then
+            If Not IO.File.Exists(txtGenereINIPath.Text) Then
+                ErrorProviderMain.SetError(txtGenereINIPath, "Mame genre folder.ini file doesn't exist")
+            Else
+                ErrorProviderMain.SetError(txtGenereINIPath, "")
+            End If
+        End If
+    End Sub
+
+    Private Sub txtRatingPath_Validating(sender As Object, e As CancelEventArgs) Handles txtRatingPath.Validating
+        If txtRatingPath.Enabled = True Then
+            If Not IO.File.Exists(txtRatingPath.Text) Then
+                ErrorProviderMain.SetError(txtRatingPath, "Mame rating folder.ini file doesn't exist")
+            Else
+                ErrorProviderMain.SetError(txtRatingPath, "")
+            End If
+        End If
+    End Sub
+
+    Private Sub txtFavouritesPath_Validating(sender As Object, e As CancelEventArgs) Handles txtFavouritesPath.Validating
+        If txtFavouritesPath.Enabled = True Then
+            If Not IO.File.Exists(txtFavouritesPath.Text) Then
+                ErrorProviderMain.SetError(txtFavouritesPath, "Mame favourites folder.ini file doesn't exist")
+            Else
+                ErrorProviderMain.SetError(txtFavouritesPath, "")
+            End If
+        End If
+    End Sub
+
+    Private Sub txtHiddenGames_Validating(sender As Object, e As CancelEventArgs) Handles txtHiddenGames.Validating
+        If txtHiddenGames.Enabled = True Then
+            If Not IO.File.Exists(txtHiddenGames.Text) Then
+                ErrorProviderMain.SetError(txtHiddenGames, "Mame hidden games folder.ini file doesn't exist")
+            Else
+                ErrorProviderMain.SetError(txtHiddenGames, "")
+            End If
+        End If
+    End Sub
+
+    Private Sub btnBackGround_Click(sender As Object, e As EventArgs) Handles btnBackGround.Click
+
+    End Sub
 End Class

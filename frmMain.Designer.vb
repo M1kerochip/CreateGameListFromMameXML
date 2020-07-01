@@ -33,7 +33,7 @@ Partial Class frmMain
         Me.txtImageAppend = New System.Windows.Forms.TextBox()
         Me.chkVersionXML = New System.Windows.Forms.CheckBox()
         Me.lblImagesa = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
+        Me.lblMAME_EXE = New System.Windows.Forms.Label()
         Me.btnCreateGameList = New System.Windows.Forms.Button()
         Me.btnCreateMameXML = New System.Windows.Forms.Button()
         Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
@@ -87,13 +87,25 @@ Partial Class frmMain
         Me.chkHideBios = New System.Windows.Forms.CheckBox()
         Me.btnWideForm = New System.Windows.Forms.Button()
         Me.chkIncludeEmulationStatusInDesc = New System.Windows.Forms.CheckBox()
-        Me.Label1 = New System.Windows.Forms.Label()
+        Me.lblFavouriteGamesAndAbove = New System.Windows.Forms.Label()
         Me.chkFavGreaterThan = New System.Windows.Forms.CheckBox()
         Me.cmbFavGreaterThanNumber = New System.Windows.Forms.ComboBox()
         Me.chkHideCategories = New System.Windows.Forms.CheckBox()
         Me.txtHideCategories = New System.Windows.Forms.TextBox()
         Me.chkAlsoRemoveDriver = New System.Windows.Forms.CheckBox()
         Me.txtHiddenDrivers = New System.Windows.Forms.TextBox()
+        Me.chkIsSoftwareList = New System.Windows.Forms.CheckBox()
+        Me.txtFakeZipDir = New System.Windows.Forms.TextBox()
+        Me.chkCreateFakeZip = New System.Windows.Forms.CheckBox()
+        Me.chkMoveFakeClones = New System.Windows.Forms.CheckBox()
+        Me.txtFakeClonesDir = New System.Windows.Forms.TextBox()
+        Me.btnSetFakeZipDir = New System.Windows.Forms.Button()
+        Me.lblClonesFolder = New System.Windows.Forms.Label()
+        Me.ErrorProviderMain = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.chkScanSubFolders = New System.Windows.Forms.CheckBox()
+        Me.chkDontHideFavGames = New System.Windows.Forms.CheckBox()
+        Me.btnBackGround = New System.Windows.Forms.Button()
+        CType(Me.ErrorProviderMain, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'btnMameXMLPath
@@ -171,18 +183,18 @@ Partial Class frmMain
         Me.lblImagesa.TabIndex = 70
         Me.lblImagesa.Text = "Snapshot / Images Directory"
         '
-        'Label2
+        'lblMAME_EXE
         '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(9, 19)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(139, 13)
-        Me.Label2.TabIndex = 5
-        Me.Label2.Text = "MAME.exe (For list creation)"
+        Me.lblMAME_EXE.AutoSize = True
+        Me.lblMAME_EXE.Location = New System.Drawing.Point(9, 19)
+        Me.lblMAME_EXE.Name = "lblMAME_EXE"
+        Me.lblMAME_EXE.Size = New System.Drawing.Size(139, 13)
+        Me.lblMAME_EXE.TabIndex = 5
+        Me.lblMAME_EXE.Text = "MAME.exe (For list creation)"
         '
         'btnCreateGameList
         '
-        Me.btnCreateGameList.Location = New System.Drawing.Point(12, 388)
+        Me.btnCreateGameList.Location = New System.Drawing.Point(12, 415)
         Me.btnCreateGameList.Name = "btnCreateGameList"
         Me.btnCreateGameList.Size = New System.Drawing.Size(720, 45)
         Me.btnCreateGameList.TabIndex = 240
@@ -191,9 +203,9 @@ Partial Class frmMain
         '
         'btnCreateMameXML
         '
-        Me.btnCreateMameXML.Location = New System.Drawing.Point(198, 9)
+        Me.btnCreateMameXML.Location = New System.Drawing.Point(228, 9)
         Me.btnCreateMameXML.Name = "btnCreateMameXML"
-        Me.btnCreateMameXML.Size = New System.Drawing.Size(136, 23)
+        Me.btnCreateMameXML.Size = New System.Drawing.Size(106, 21)
         Me.btnCreateMameXML.TabIndex = 10
         Me.btnCreateMameXML.Text = "Create Mame List"
         Me.btnCreateMameXML.UseVisualStyleBackColor = True
@@ -332,7 +344,7 @@ Partial Class frmMain
         '
         Me.cmbROMExt.FormattingEnabled = True
         Me.cmbROMExt.Items.AddRange(New Object() {".zip", ".7z"})
-        Me.cmbROMExt.Location = New System.Drawing.Point(274, 344)
+        Me.cmbROMExt.Location = New System.Drawing.Point(99, 346)
         Me.cmbROMExt.Name = "cmbROMExt"
         Me.cmbROMExt.Size = New System.Drawing.Size(60, 21)
         Me.cmbROMExt.TabIndex = 230
@@ -341,7 +353,7 @@ Partial Class frmMain
         'lblRomExt
         '
         Me.lblRomExt.AutoSize = True
-        Me.lblRomExt.Location = New System.Drawing.Point(187, 347)
+        Me.lblRomExt.Location = New System.Drawing.Point(12, 349)
         Me.lblRomExt.Name = "lblRomExt"
         Me.lblRomExt.Size = New System.Drawing.Size(81, 13)
         Me.lblRomExt.TabIndex = 225
@@ -490,7 +502,7 @@ Partial Class frmMain
         'lblVideoExtension
         '
         Me.lblVideoExtension.AutoSize = True
-        Me.lblVideoExtension.Location = New System.Drawing.Point(9, 347)
+        Me.lblVideoExtension.Location = New System.Drawing.Point(13, 381)
         Me.lblVideoExtension.Name = "lblVideoExtension"
         Me.lblVideoExtension.Size = New System.Drawing.Size(80, 13)
         Me.lblVideoExtension.TabIndex = 215
@@ -500,7 +512,7 @@ Partial Class frmMain
         '
         Me.cmbVideoExt.FormattingEnabled = True
         Me.cmbVideoExt.Items.AddRange(New Object() {".mp4"})
-        Me.cmbVideoExt.Location = New System.Drawing.Point(95, 344)
+        Me.cmbVideoExt.Location = New System.Drawing.Point(99, 378)
         Me.cmbVideoExt.Name = "cmbVideoExt"
         Me.cmbVideoExt.Size = New System.Drawing.Size(60, 21)
         Me.cmbVideoExt.TabIndex = 220
@@ -521,7 +533,7 @@ Partial Class frmMain
         Me.chkPrettyXML.AutoSize = True
         Me.chkPrettyXML.Checked = True
         Me.chkPrettyXML.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkPrettyXML.Location = New System.Drawing.Point(388, 346)
+        Me.chkPrettyXML.Location = New System.Drawing.Point(203, 380)
         Me.chkPrettyXML.Name = "chkPrettyXML"
         Me.chkPrettyXML.Size = New System.Drawing.Size(129, 17)
         Me.chkPrettyXML.TabIndex = 241
@@ -531,7 +543,7 @@ Partial Class frmMain
         'llGithub
         '
         Me.llGithub.AutoSize = True
-        Me.llGithub.Location = New System.Drawing.Point(658, 372)
+        Me.llGithub.Location = New System.Drawing.Point(658, 399)
         Me.llGithub.Name = "llGithub"
         Me.llGithub.Size = New System.Drawing.Size(74, 13)
         Me.llGithub.TabIndex = 242
@@ -615,7 +627,7 @@ Partial Class frmMain
         '
         'btnWideForm
         '
-        Me.btnWideForm.Location = New System.Drawing.Point(708, 343)
+        Me.btnWideForm.Location = New System.Drawing.Point(708, 345)
         Me.btnWideForm.Name = "btnWideForm"
         Me.btnWideForm.Size = New System.Drawing.Size(24, 20)
         Me.btnWideForm.TabIndex = 251
@@ -627,41 +639,44 @@ Partial Class frmMain
         Me.chkIncludeEmulationStatusInDesc.AutoSize = True
         Me.chkIncludeEmulationStatusInDesc.Checked = True
         Me.chkIncludeEmulationStatusInDesc.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkIncludeEmulationStatusInDesc.Location = New System.Drawing.Point(764, 368)
+        Me.chkIncludeEmulationStatusInDesc.Location = New System.Drawing.Point(388, 380)
         Me.chkIncludeEmulationStatusInDesc.Name = "chkIncludeEmulationStatusInDesc"
         Me.chkIncludeEmulationStatusInDesc.Size = New System.Drawing.Size(246, 17)
         Me.chkIncludeEmulationStatusInDesc.TabIndex = 252
         Me.chkIncludeEmulationStatusInDesc.Text = "Include Emulation && Driver status in description"
         Me.chkIncludeEmulationStatusInDesc.UseVisualStyleBackColor = True
         '
-        'Label1
+        'lblFavouriteGamesAndAbove
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(956, 312)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(58, 13)
-        Me.Label1.TabIndex = 255
-        Me.Label1.Text = "and above"
+        Me.lblFavouriteGamesAndAbove.AutoSize = True
+        Me.lblFavouriteGamesAndAbove.Location = New System.Drawing.Point(956, 299)
+        Me.lblFavouriteGamesAndAbove.Name = "lblFavouriteGamesAndAbove"
+        Me.lblFavouriteGamesAndAbove.Size = New System.Drawing.Size(58, 13)
+        Me.lblFavouriteGamesAndAbove.TabIndex = 255
+        Me.lblFavouriteGamesAndAbove.Text = "and above"
+        Me.lblFavouriteGamesAndAbove.Visible = False
         '
         'chkFavGreaterThan
         '
         Me.chkFavGreaterThan.AutoSize = True
-        Me.chkFavGreaterThan.Location = New System.Drawing.Point(764, 312)
+        Me.chkFavGreaterThan.Location = New System.Drawing.Point(764, 298)
         Me.chkFavGreaterThan.Name = "chkFavGreaterThan"
         Me.chkFavGreaterThan.Size = New System.Drawing.Size(131, 17)
         Me.chkFavGreaterThan.TabIndex = 254
         Me.chkFavGreaterThan.Text = "Favourite games rated"
         Me.chkFavGreaterThan.UseVisualStyleBackColor = True
+        Me.chkFavGreaterThan.Visible = False
         '
         'cmbFavGreaterThanNumber
         '
         Me.cmbFavGreaterThanNumber.FormattingEnabled = True
         Me.cmbFavGreaterThanNumber.Items.AddRange(New Object() {"0", "10", "20", "30", "40", "50", "60", "70", "80", "90"})
-        Me.cmbFavGreaterThanNumber.Location = New System.Drawing.Point(901, 309)
+        Me.cmbFavGreaterThanNumber.Location = New System.Drawing.Point(901, 296)
         Me.cmbFavGreaterThanNumber.Name = "cmbFavGreaterThanNumber"
         Me.cmbFavGreaterThanNumber.Size = New System.Drawing.Size(49, 21)
         Me.cmbFavGreaterThanNumber.TabIndex = 253
         Me.cmbFavGreaterThanNumber.Text = "80"
+        Me.cmbFavGreaterThanNumber.Visible = False
         '
         'chkHideCategories
         '
@@ -698,16 +713,123 @@ Partial Class frmMain
         Me.txtHiddenDrivers.Size = New System.Drawing.Size(344, 20)
         Me.txtHiddenDrivers.TabIndex = 259
         '
+        'chkIsSoftwareList
+        '
+        Me.chkIsSoftwareList.AutoSize = True
+        Me.chkIsSoftwareList.Location = New System.Drawing.Point(562, 348)
+        Me.chkIsSoftwareList.Name = "chkIsSoftwareList"
+        Me.chkIsSoftwareList.Size = New System.Drawing.Size(123, 17)
+        Me.chkIsSoftwareList.TabIndex = 260
+        Me.chkIsSoftwareList.Text = "Load -listsoftware list"
+        Me.chkIsSoftwareList.UseVisualStyleBackColor = True
+        '
+        'txtFakeZipDir
+        '
+        Me.txtFakeZipDir.Location = New System.Drawing.Point(886, 348)
+        Me.txtFakeZipDir.Name = "txtFakeZipDir"
+        Me.txtFakeZipDir.Size = New System.Drawing.Size(200, 20)
+        Me.txtFakeZipDir.TabIndex = 262
+        '
+        'chkCreateFakeZip
+        '
+        Me.chkCreateFakeZip.AutoSize = True
+        Me.chkCreateFakeZip.Location = New System.Drawing.Point(764, 350)
+        Me.chkCreateFakeZip.Name = "chkCreateFakeZip"
+        Me.chkCreateFakeZip.Size = New System.Drawing.Size(116, 17)
+        Me.chkCreateFakeZip.TabIndex = 261
+        Me.chkCreateFakeZip.Text = "Create empty roms:"
+        Me.chkCreateFakeZip.UseVisualStyleBackColor = True
+        '
+        'chkMoveFakeClones
+        '
+        Me.chkMoveFakeClones.AutoSize = True
+        Me.chkMoveFakeClones.Location = New System.Drawing.Point(764, 380)
+        Me.chkMoveFakeClones.Name = "chkMoveFakeClones"
+        Me.chkMoveFakeClones.Size = New System.Drawing.Size(110, 17)
+        Me.chkMoveFakeClones.TabIndex = 263
+        Me.chkMoveFakeClones.Text = "Move clones into:"
+        Me.chkMoveFakeClones.UseVisualStyleBackColor = True
+        '
+        'txtFakeClonesDir
+        '
+        Me.txtFakeClonesDir.Location = New System.Drawing.Point(886, 378)
+        Me.txtFakeClonesDir.Name = "txtFakeClonesDir"
+        Me.txtFakeClonesDir.Size = New System.Drawing.Size(161, 20)
+        Me.txtFakeClonesDir.TabIndex = 264
+        Me.txtFakeClonesDir.Text = "00_Clones"
+        '
+        'btnSetFakeZipDir
+        '
+        Me.btnSetFakeZipDir.Location = New System.Drawing.Point(1084, 348)
+        Me.btnSetFakeZipDir.Name = "btnSetFakeZipDir"
+        Me.btnSetFakeZipDir.Size = New System.Drawing.Size(24, 20)
+        Me.btnSetFakeZipDir.TabIndex = 265
+        Me.btnSetFakeZipDir.Text = "..."
+        Me.btnSetFakeZipDir.UseVisualStyleBackColor = True
+        '
+        'lblClonesFolder
+        '
+        Me.lblClonesFolder.AutoSize = True
+        Me.lblClonesFolder.Location = New System.Drawing.Point(1053, 381)
+        Me.lblClonesFolder.Name = "lblClonesFolder"
+        Me.lblClonesFolder.Size = New System.Drawing.Size(33, 13)
+        Me.lblClonesFolder.TabIndex = 266
+        Me.lblClonesFolder.Text = "folder"
+        '
+        'ErrorProviderMain
+        '
+        Me.ErrorProviderMain.ContainerControl = Me
+        '
+        'chkScanSubFolders
+        '
+        Me.chkScanSubFolders.AutoSize = True
+        Me.chkScanSubFolders.Location = New System.Drawing.Point(203, 348)
+        Me.chkScanSubFolders.Name = "chkScanSubFolders"
+        Me.chkScanSubFolders.Size = New System.Drawing.Size(104, 17)
+        Me.chkScanSubFolders.TabIndex = 267
+        Me.chkScanSubFolders.Text = "Scan Subfolders"
+        Me.chkScanSubFolders.UseVisualStyleBackColor = True
+        '
+        'chkDontHideFavGames
+        '
+        Me.chkDontHideFavGames.AutoSize = True
+        Me.chkDontHideFavGames.Location = New System.Drawing.Point(388, 348)
+        Me.chkDontHideFavGames.Name = "chkDontHideFavGames"
+        Me.chkDontHideFavGames.Size = New System.Drawing.Size(162, 17)
+        Me.chkDontHideFavGames.TabIndex = 268
+        Me.chkDontHideFavGames.Text = "Don't hide the Favourites list "
+        Me.chkDontHideFavGames.UseVisualStyleBackColor = True
+        '
+        'btnBackGround
+        '
+        Me.btnBackGround.Location = New System.Drawing.Point(764, 415)
+        Me.btnBackGround.Name = "btnBackGround"
+        Me.btnBackGround.Size = New System.Drawing.Size(344, 45)
+        Me.btnBackGround.TabIndex = 269
+        Me.btnBackGround.Text = "Create Emulation Station gamelist.xml (Background worker thread)"
+        Me.btnBackGround.UseVisualStyleBackColor = True
+        Me.btnBackGround.Visible = False
+        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1120, 445)
+        Me.ClientSize = New System.Drawing.Size(1120, 472)
+        Me.Controls.Add(Me.btnBackGround)
+        Me.Controls.Add(Me.chkDontHideFavGames)
+        Me.Controls.Add(Me.chkScanSubFolders)
+        Me.Controls.Add(Me.lblClonesFolder)
+        Me.Controls.Add(Me.txtFakeZipDir)
+        Me.Controls.Add(Me.btnSetFakeZipDir)
+        Me.Controls.Add(Me.txtFakeClonesDir)
+        Me.Controls.Add(Me.chkMoveFakeClones)
+        Me.Controls.Add(Me.chkCreateFakeZip)
+        Me.Controls.Add(Me.chkIsSoftwareList)
         Me.Controls.Add(Me.chkAlsoRemoveDriver)
         Me.Controls.Add(Me.txtHiddenDrivers)
         Me.Controls.Add(Me.chkHideCategories)
         Me.Controls.Add(Me.txtHideCategories)
-        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.lblFavouriteGamesAndAbove)
         Me.Controls.Add(Me.chkFavGreaterThan)
         Me.Controls.Add(Me.cmbFavGreaterThanNumber)
         Me.Controls.Add(Me.chkIncludeEmulationStatusInDesc)
@@ -760,7 +882,7 @@ Partial Class frmMain
         Me.Controls.Add(Me.btnImageDir)
         Me.Controls.Add(Me.btnCreateMameXML)
         Me.Controls.Add(Me.btnCreateGameList)
-        Me.Controls.Add(Me.Label2)
+        Me.Controls.Add(Me.lblMAME_EXE)
         Me.Controls.Add(Me.lblImagesa)
         Me.Controls.Add(Me.chkVersionXML)
         Me.Controls.Add(Me.txtImageAppend)
@@ -775,6 +897,7 @@ Partial Class frmMain
         Me.Name = "frmMain"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Create ES Gamelist.xml"
+        CType(Me.ErrorProviderMain, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -789,7 +912,7 @@ Partial Class frmMain
     Friend WithEvents txtImageAppend As TextBox
     Friend WithEvents chkVersionXML As CheckBox
     Friend WithEvents lblImagesa As Label
-    Friend WithEvents Label2 As Label
+    Friend WithEvents lblMAME_EXE As Label
     Friend WithEvents btnCreateGameList As Button
     Friend WithEvents btnCreateMameXML As Button
     Friend WithEvents SaveFileDialog1 As SaveFileDialog
@@ -843,11 +966,22 @@ Partial Class frmMain
     Friend WithEvents chkHideBios As CheckBox
     Friend WithEvents btnWideForm As Button
     Friend WithEvents chkIncludeEmulationStatusInDesc As CheckBox
-    Friend WithEvents Label1 As Label
+    Friend WithEvents lblFavouriteGamesAndAbove As Label
     Friend WithEvents chkFavGreaterThan As CheckBox
     Friend WithEvents cmbFavGreaterThanNumber As ComboBox
     Friend WithEvents chkHideCategories As CheckBox
     Friend WithEvents txtHideCategories As TextBox
     Friend WithEvents chkAlsoRemoveDriver As CheckBox
     Friend WithEvents txtHiddenDrivers As TextBox
+    Friend WithEvents chkIsSoftwareList As CheckBox
+    Friend WithEvents txtFakeZipDir As TextBox
+    Friend WithEvents chkCreateFakeZip As CheckBox
+    Friend WithEvents chkMoveFakeClones As CheckBox
+    Friend WithEvents txtFakeClonesDir As TextBox
+    Friend WithEvents btnSetFakeZipDir As Button
+    Friend WithEvents lblClonesFolder As Label
+    Friend WithEvents ErrorProviderMain As ErrorProvider
+    Friend WithEvents chkScanSubFolders As CheckBox
+    Friend WithEvents chkDontHideFavGames As CheckBox
+    Friend WithEvents btnBackGround As Button
 End Class

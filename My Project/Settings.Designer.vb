@@ -545,6 +545,78 @@ Namespace My
                 Me("HiddenDriverList") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property IncludeCreateFakeZip() As Boolean
+            Get
+                Return CType(Me("IncludeCreateFakeZip"),Boolean)
+            End Get
+            Set
+                Me("IncludeCreateFakeZip") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property IncludeMoveFakeClones() As Boolean
+            Get
+                Return CType(Me("IncludeMoveFakeClones"),Boolean)
+            End Get
+            Set
+                Me("IncludeMoveFakeClones") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property CreateFakeZipDir() As String
+            Get
+                Return CType(Me("CreateFakeZipDir"),String)
+            End Get
+            Set
+                Me("CreateFakeZipDir") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property MoveFakeClonesDir() As String
+            Get
+                Return CType(Me("MoveFakeClonesDir"),String)
+            End Get
+            Set
+                Me("MoveFakeClonesDir") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property UpdateSettings() As Boolean
+            Get
+                Return CType(Me("UpdateSettings"),Boolean)
+            End Get
+            Set
+                Me("UpdateSettings") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property DontHideFavList() As Boolean
+            Get
+                Return CType(Me("DontHideFavList"),Boolean)
+            End Get
+            Set
+                Me("DontHideFavList") = value
+            End Set
+        End Property
     End Class
 End Namespace
 
