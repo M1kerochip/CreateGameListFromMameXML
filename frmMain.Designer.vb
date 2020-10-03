@@ -105,6 +105,7 @@ Partial Class frmMain
         Me.chkScanSubFolders = New System.Windows.Forms.CheckBox()
         Me.chkDontHideFavGames = New System.Windows.Forms.CheckBox()
         Me.btnBackGround = New System.Windows.Forms.Button()
+        Me.chkHistoryFirst = New System.Windows.Forms.CheckBox()
         CType(Me.ErrorProviderMain, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -810,11 +811,22 @@ Partial Class frmMain
         Me.btnBackGround.UseVisualStyleBackColor = True
         Me.btnBackGround.Visible = False
         '
+        'chkHistoryFirst
+        '
+        Me.chkHistoryFirst.AutoSize = True
+        Me.chkHistoryFirst.Location = New System.Drawing.Point(604, 18)
+        Me.chkHistoryFirst.Name = "chkHistoryFirst"
+        Me.chkHistoryFirst.Size = New System.Drawing.Size(110, 17)
+        Me.chkHistoryFirst.TabIndex = 270
+        Me.chkHistoryFirst.Text = "Show History First"
+        Me.chkHistoryFirst.UseVisualStyleBackColor = True
+        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1120, 472)
+        Me.Controls.Add(Me.chkHistoryFirst)
         Me.Controls.Add(Me.btnBackGround)
         Me.Controls.Add(Me.chkDontHideFavGames)
         Me.Controls.Add(Me.chkScanSubFolders)
@@ -984,4 +996,5 @@ Partial Class frmMain
     Friend WithEvents chkScanSubFolders As CheckBox
     Friend WithEvents chkDontHideFavGames As CheckBox
     Friend WithEvents btnBackGround As Button
+    Friend WithEvents chkHistoryFirst As CheckBox
 End Class

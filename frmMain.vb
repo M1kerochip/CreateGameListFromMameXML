@@ -87,6 +87,7 @@ Public Class frmMain
                 chkCreateFakeZip.Checked = .IncludeCreateFakeZip
                 chkMoveFakeClones.Checked = .IncludeMoveFakeClones
                 chkDontHideFavGames.Checked = .DontHideFavList
+                chkHistoryFirst.Checked = .ShowHistoryFirst
             End With
             Return True
         Catch ex As Exception
@@ -141,6 +142,7 @@ Public Class frmMain
                 .IncludeCreateFakeZip = chkCreateFakeZip.Checked
                 .IncludeMoveFakeClones = chkMoveFakeClones.Checked
                 .DontHideFavList = chkDontHideFavGames.Checked
+                .ShowHistoryFirst = chkHistoryFirst.Checked
             End With
             Return True
         Catch ex As Exception
@@ -389,6 +391,8 @@ Public Class frmMain
             Else
                 g.DontHideFavGame = False
             End If
+
+            g.ShowHistoryDescFirst = chkHistoryFirst.Checked
 
             g.ShowProgress = True
 

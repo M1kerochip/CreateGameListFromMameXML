@@ -19,6 +19,7 @@
     Public Property FavouritePath As String = ""
     Public Property GenrePath As String = ""
     Public Property IsSoftwareList As Boolean = False
+    Public Property ShowHistoryDescFirst As Boolean = True
 
     Public Property CreateEmptyZip As String = ""
     Public Property MoveEmptyZipClonesDir As String = ""
@@ -344,7 +345,12 @@
                         End If
 
                         W.WriteStartElement(“desc”)         'Write Description
-                        W.WriteString(st1 + HistDesc + InfoDesc)
+                        If ShowHistoryDescFirst = True Then
+                            W.WriteString(st1 + HistDesc + InfoDesc)
+                        Else
+                            W.WriteString(st1 + InfoDesc + HistDesc)
+
+                        End If
                         W.WriteEndElement()                 'Close Description
 
                         st1 = ImagePath + "/" + ImagePrepend + Romfile + ImageAppend + ImageExtension
